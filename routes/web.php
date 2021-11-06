@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/home',[HomeController::class,'index']);
+Route::get('/login',[LoginController::class,'index']);
+Route::get('/login/{name}',[LoginController::class,'test'])->where('name','[0-9]+');
+
 
 Route::get('/', function () {
     return view('welcome');

@@ -1,0 +1,13 @@
+header{
+    background-color: #fa0050;
+}
+
+
+.row{
+    margin-right: 0 !important;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    
+} 
