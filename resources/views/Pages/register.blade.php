@@ -24,33 +24,17 @@
 
     </head>
     <body>
-        
-        @include('Home.header')
-        
-        <div class="content mt-4">
-            <div class="row offset-sm-1">
-                <div class="col-xl-3">
-                    @section('left-filter')
-                    @show
-                    
-                    @include('Home.left')
-                    
-                </div>
-                <div class="col-xl-6">
-                    @section('content')
-                    @show
-                </div>
-                <div class="col-xl-2">
-                    @include('Home.right')
-                </div>
 
+        <div class="container">
+            <div class="row mt-5 d-flex justify-content-center ">
+                <div class="col-6 border p-3">
+                    @include('Register.form')
+                </div>
             </div>
         </div>
         
-        <div class="content">
-            @include('Home.footer')
-        </div>
-
+        
+        
     </body>
     
 </html> 
