@@ -10,6 +10,7 @@
             <div class="col-3">
                 <input class="form-control sm-12" type="search" placeholder="Şehir ara" aria-label="Search">            
             </div>
+            
             <div class="col-4  d-flex">
                 <input type="text" class="form-control" placeholder="Yemek veya restaurant arayın." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append" >

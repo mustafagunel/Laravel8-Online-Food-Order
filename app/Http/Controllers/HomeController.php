@@ -11,6 +11,9 @@ class HomeController extends Controller
         return view('Home.index',['city'=>$city]);
     }
     public function index2($city,$town){
+
+        // şehre göre restaurantları ya da yemekleri sırala.
+
         return view('Home.index',['city'=>$city,'town'=>$town]);
     }
 }

@@ -1,4 +1,4 @@
-@extends('Pages.home')
+@extends('Home.Pages.home')
 
 @if (isset($town))
     @section('title', $city.'/'.$town.' - Online Yemek Siparişi, Paket Servis - Yemek Diyarı')

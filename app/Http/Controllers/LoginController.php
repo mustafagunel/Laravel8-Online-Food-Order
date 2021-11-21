@@ -10,41 +10,52 @@ class LoginController extends Controller
 {
     public function index(){
 
-        return view('Login.index',['name'=>'Mustafa ','surname'=>'Günel']); 
-    }
-
-    public function test($name){
-    
-        return view('Login.index',['name'=>$name]);
+        if(Auth::user()){
+            return redirect()->intended('restaurant/istanbul');
+        }else{
+            return view('Login.login');
+        }
+         
     }
 
     public function authenticate(Request $request)
     {
 
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        if(Auth::user()){
             return redirect()->intended('restaurant/istanbul');
-        }
+        }else{
 
-        echo "giriş başarısız";
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+            
+
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required']
+            ]);
+            
+            //if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('restaurant/istanbul');
+            }
+
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
+        
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        if(Auth::user()){
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->intended('restaurant/istanbul');
+        }else{
+            return view('Login.login');
+        }
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->intended('restaurant/istanbul');
+        
     }
 }

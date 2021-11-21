@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,10 +20,10 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'surname',
-        'email',
-        'password',
+        'name' => "isim",
+        'surname' => "soy isim",
+        'email' => 'required',
+        'password' => 'required'
     ];
 
     /**
@@ -34,15 +36,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
-    protected $table="tbl_users";    
- 
+    /*
+    protected $table = "users";
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    public $timestamps = true;
+    */
 }
