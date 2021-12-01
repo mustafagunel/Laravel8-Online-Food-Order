@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\AjaxController;
 
 
 
@@ -21,6 +22,7 @@ use App\Http\Controllers\RestaurantController;
 */
 Route::get('restaurant/{city}',[HomeController::class,'index'])->where('city','[A-za-z]+');
 Route::get('restaurant/{city}/{town}',[HomeController::class,'index2'])->where(['city'=>'[A-za-z]+','town'=>'[A-za-z]+']);
+Route::get('restaurant/d/{id}', [HomeController::class,'index3']);
 
 
 Route::get('/login',[LoginController::class,'index']);
@@ -34,10 +36,20 @@ Route::post('/register', [RegisterController::class,'store']);
 
 Route::get('/admin', [AdminController::class,'index']);
 Route::get('/admin/{page}', [AdminController::class,'index2']);
+Route::post('/admin/update/settings', [AdminController::class,'update']);
+Route::post('/admin/add/restaurant', [AdminController::class,'addRestaurant']);
 
-Route::get('profile/restaurant/{user}', [RestaurantController::class,'index']);
-Route::get('profile/restaurant/{user}/{page}', [RestaurantController::class,'index2']);
 
+
+Route::post('/get/town', [AjaxController::class,'getTown']);
+
+//temp Route::get('/admin/{s1}/{s2}', [AdminController::class,'topla'])->where(['s1'=>'[0-9]+','s2'=>'[0-9]+']);
+
+
+Route::get('profile/restaurant', [RestaurantController::class,'index']);
+Route::get('profile/restaurant/{page}', [RestaurantController::class,'index2']);
+Route::get('profile/restaurant/add/product', [RestaurantController::class,'index3']);
+Route::post('profile/restaurant/add/product', [RestaurantController::class,'addProduct']);
 
 
 

@@ -10,13 +10,20 @@
     @section('content')
         @include('Home.products')
     @endsection
-    
 
-@else
+@elseif (!isset($town) && isset($city)) 
     @section('title', $city.' - Online Yemek Siparişi, Paket Servis - Yemek Diyarı')
 
     @section('content')
         @include('Home.center')
+    @endsection
+
+
+@elseif (isset($restaurant)) 
+    @section('title', 'Restaurant - '.$restaurant->title)
+
+    @section('content')
+        @include('Home.restaurant_detail')
     @endsection
     
 @endif

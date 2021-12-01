@@ -25,10 +25,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
                     
                     @section('content')
                     @show
@@ -75,7 +71,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -96,7 +92,41 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('assets') }}/admin/js/demo/chart-area-demo.js"></script>
+    
+    <script>
+        function changeTown() {
+                
+                $("#town").empty();
+                var city = document.getElementById("city").value;
+                var sel = document.getElementById('town');
 
+                $.ajax({
+                    url : '/get/town',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "city": city
+                        },
+                    type: 'post',
+                    success: function( result )
+                    {
+                        result.forEach(town => {
+                            var opt = document.createElement('option');
+                            opt.value = town.id;
+                            opt.innerHTML = town.name;
+                            sel.appendChild(opt);
+                        });
+
+                    },
+                    error: function()
+                    {
+                        alert('error...');
+                    }
+                });
+            }
+       
+
+        
+    </script>
 </body>
 
 </html>

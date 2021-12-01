@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('password');
+            $table->int('point')->nullable();
             $table->enum('role', ['user','admin','restaurant'])->default('user');
             $table->boolean('status')->nullable();
             $table->timestamps();
