@@ -26,9 +26,17 @@ class HomeController extends Controller
         $page="restaurant-detail";
         $query='select restaurant.*, town.name as town_name from restaurant join town on restaurant.town = town.id where restaurant.id = '.$restaurant_id; 
         //$query= 'select * from restaurant where id = '.$restaurant_id;
-        $restaurant = DB::select($query);
+        $getproducts = 'select product.*, category.title as category_name from product join category on product.category_id = category.id WHERE restaurant_id = '.$restaurant_id.' ORDER BY category_id';
+        $getCategories = 'select DISTINCT category.title as category_name from product join category on product.category_id = category.id WHERE restaurant_id = '.$restaurant_id.' ORDER BY category_id';
 
-        return view('Home.index',['restaurant'=>$restaurant[0]]);
+
+        $restaurant = DB::select($query);
+        $products = DB::select($getproducts);
+        $categories = DB::select($getCategories);
+        
+
+        return view('Home.index',['restaurant'=>$restaurant[0],'products'=>$products,'categories'=>$categories]);
     }
+
 
 }

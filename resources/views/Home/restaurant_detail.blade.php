@@ -56,7 +56,43 @@
 </div>
 
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="home-tab">.a.</div>
+    <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="home-tab">
+        @foreach($categories as $category)
+            <div class="col-12 category-header pt-2">
+                <div class="row">
+                    <h3> {{ $category->category_name }} </h3>
+                </div>
+            </div>
+            @foreach($products as $product)
+                @if($product->category_name == $category->category_name)
+                    <div class="product col-12 mb-2 p-2 border" >
+                        <div class="row d-flex align-items-center">
+                            <div class="col-2 col-sm-1 price" >
+                                <input data-product-id="{{ $product->id }}" type="text" style="width:100%; text-align:center" value="1"> 
+                            </div>
+                            <div class="col-2 col-sm-1" >
+                                <button class="btn-success add-to-cart" 
+                                    aria-label="Sepete Ekle"  
+                                    data-product-id="{{ $product->id }}" 
+                                     > 
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="col-6 col-sm-8" >
+                                <div class="row fw-bold">{{ $product->title }}</div>
+                                <div class="row">{{ $product->description }}</div>
+                            </div>
+                            <div class="col-2 col-sm-2 fw-bold" >{{ $product->price }} TL</div>
+                        </div>
+                    </div>
+
+                @endif
+            @endforeach   
+        @endforeach   
+
+        
+    
+    </div>
   <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">.b.</div>
   <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">.c.</div>
 </div>

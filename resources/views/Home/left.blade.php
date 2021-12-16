@@ -30,16 +30,23 @@
         <!-- Cart -->
         <div class="row mt-3">
             <div class="col-12">
-                <div class="cart">
+                <div class="cart-border">
                     <div class="text text-white p-2 " style="font-weight:bold;background-color:#fa0050">                
                         SEPET
                     </div>
-                    <div class="text p-2" style="background-color:#efefef">
-                        İlçe 
+                    <div class="col-12" id="error-body" style="display:none;">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Hata.</strong> <span id="error-text"> </span>
+                        </div>
                     </div>
-                    <div class="d-flex p-3 bg-light border align-items-center">
-                        <i class="fa fa-shopping-basket fa-3x" style="color:gray; margin-right:10px" aria-hidden="true"></i>
-                        Sepetiniz henüz boş.
+                    <div class="d-flex p-3 bg-light border align-items-center" id="cart">
+                        <p>
+                            <i class="d-flex fa fa-shopping-basket fa-3x" style="color:gray; margin-right:10px" aria-hidden="true"></i>
+                            <p class="text-start">Sepetiniz henüz boş.</p>
+                        </p>
+                        <div class="container p-0">
+
+                        </div>
                     </div>
 
                 </div>

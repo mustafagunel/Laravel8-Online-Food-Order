@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -42,6 +43,13 @@ Route::post('/admin/add/restaurant', [AdminController::class,'addRestaurant']);
 
 
 Route::post('/get/town', [AjaxController::class,'getTown']);
+Route::post('/add/add-to-cart', [AjaxController::class,'addToCart']);
+Route::post('/get/get-cart', [AjaxController::class,'getCart']);
+Route::post('/remove/item', [AjaxController::class,'removeItem']);
+
+Route::get('/cart',[CartController::class, 'getCart']);
+Route::post('/pay/{type}',[CartController::class, 'checkOut']);
+
 
 //temp Route::get('/admin/{s1}/{s2}', [AdminController::class,'topla'])->where(['s1'=>'[0-9]+','s2'=>'[0-9]+']);
 

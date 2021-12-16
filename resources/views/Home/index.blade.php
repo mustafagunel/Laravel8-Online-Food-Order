@@ -26,5 +26,14 @@
         @include('Home.restaurant_detail')
     @endsection
     
+
+@elseif (isset($cart)) 
+    @section('title', 'Sepetiniz')
+
+    
+    @section('content')
+        @include('Home.Cart.cart')
+    @endsection
+    
 @endif
 
