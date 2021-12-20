@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Restaurant;
 
 class HomeController extends Controller
 {
     //
     public function index($city){
-        return view('Home.index',['city'=>$city]);
+        
+        $q = 'SELECT * FROM `product` INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
+        $tenProductAndRestaurant = DB::select($q);
+        
+        return view('Home.index',['city'=>$city,'tenProductAndRestaurant'=>$tenProductAndRestaurant]);
     }
     public function index2($city,$town){
         //$query='select product.*, restaurant.title as restaurant_name from product join restaurant on product.restaurant_id = restaurant.id where restaurant_id IN (SELECT restaurant_id from restaurant where town = (select id from town where name = "'.$town.'")) ';
@@ -38,5 +43,11 @@ class HomeController extends Controller
         return view('Home.index',['restaurant'=>$restaurant[0],'products'=>$products,'categories'=>$categories]);
     }
 
+
+    function selectRestaurant(){
+        $cities = DB::select('select * from city');
+        
+        return view('Home.countries',['cities'=>$cities]);
+    }
 
 }

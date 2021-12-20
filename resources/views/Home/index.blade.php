@@ -30,6 +30,11 @@
 @elseif (isset($cart)) 
     @section('title', 'Sepetiniz')
 
+    @if (isset($alert))
+        @section('alert')
+            @include('Home.Cart.alert')
+        @endsection
+    @endif
     
     @section('content')
         @include('Home.Cart.cart')

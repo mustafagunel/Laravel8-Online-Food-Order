@@ -15,7 +15,7 @@
                     </div>
                     <div class="col offset-1">
                         <div class="row" style="color:#fa0050">
-                            {{Auth::user()->name." ".Auth::user()->surname}}
+                            <a href="/profile/user/{{Auth::user()->id}}">{{Auth::user()->name." ".Auth::user()->surname}} </a>
                         </div>
                         <div class="row">
                             2,263 Toplam Puan

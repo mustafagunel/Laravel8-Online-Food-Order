@@ -27,10 +27,16 @@ class CartController extends Controller
     function checkOut(Request $request, $type){
 
         if(!Auth::user()){
-            return response()->json("Lütfen Giriş Yapınız", 200);
+            $alert = "Sipariş vermek için giriş yapmak zorundasınız.";
+            $cart = session()->get('cart', []);
+            $_total=0;
+            foreach($cart as $c){
+                $_total = $_total + $c['quantity']*$c['price'];
+                $rID = $c['restaurant'];
+            }
+            $min = DB::table('restaurant')->select('min_cart')->where('id',$rID)->get(); 
+            return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
         }
-
-
 
         $cart = session()->get('cart', []);
         
@@ -44,9 +50,15 @@ class CartController extends Controller
         
 
         if( $_total < $min->min_cart){
-            $ret = "Minimum sepet tutarını karşılamıyor! ".$min->min_cart-$_total." TL daha ürün eklemeniz gerekmekte.";
-
-            return response()->json($ret, 200);
+            $alert = "Minimum sepet tutarını karşılamıyor. ".$min->min_cart-$_total." TL daha ürün eklemeniz gerekmekte.";
+            $cart = session()->get('cart', []);
+            $_total=0;
+            foreach($cart as $c){
+                $_total = $_total + $c['quantity']*$c['price'];
+                $rID = $c['restaurant'];
+            }
+            $min = DB::table('restaurant')->select('min_cart')->where('id',$rID)->get(); 
+            return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
         }else{
             switch($type){
                 case "cash":
@@ -56,10 +68,12 @@ class CartController extends Controller
                     $this->payment($cart);
                     break;
                 default:
-                    $this->payment($cart);
                     break;
             }
+            
+            return view('User.index',['success'=>"Ödeme işlemi başarılı şekilde gerçekleştirildi."]);
         }
+
     }
 
 
@@ -72,11 +86,11 @@ class CartController extends Controller
             $total = $total + $p[0]->price*$c['quantity']; 
         }
 
+        // Yeni sipariş oluşturulması
         DB::table('orders')->insert([
             'user_id'=>Auth::user()->id,
             'restaurant_id'=> $c['restaurant'],
             'total'=> $total,
-            'status'=>'status',
             'note'=>'note',
             'ip'=>$ip,
             'created_at'=>date("Y-m-d H:i:s"),
@@ -85,8 +99,8 @@ class CartController extends Controller
 
         $newOrder = DB::table('orders')->where('user_id', Auth::User()->id)->orderByRaw('id DESC')->first();
 
+        // Siparişe ait ürünlerin tabloya eklenmesi
         foreach($cart as $c){
-
             $product = DB::table('product')->select('price')->where('id',$c['pID'])->first();         
             DB::table('orders_products')->insert([
                 'user_id' => Auth::User()->id,
@@ -103,10 +117,14 @@ class CartController extends Controller
             ]);
 
         }
+
+
+
     }
     
     public function paymentFail(){
-        return response()->json("Ödeme alınırken hata oluştu", 200);
+        
+        return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
     }
 
 

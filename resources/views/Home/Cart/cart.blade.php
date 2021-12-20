@@ -5,6 +5,9 @@
     </div>
 @endif
 
+@section('alert')
+@show
+
 <div class="container-fluid" >
     <div class="row p-2" style="background-color:#fa0050; color:white;" >
         <div class="col-6">

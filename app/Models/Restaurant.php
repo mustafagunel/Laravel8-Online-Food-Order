@@ -22,4 +22,7 @@ class Restaurant extends Model
         'location',
         'status'
     ];
+
+    
+    protected $table = 'restaurant';
 }

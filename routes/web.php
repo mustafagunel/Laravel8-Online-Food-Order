@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -24,6 +25,7 @@ use App\Http\Controllers\CartController;
 Route::get('restaurant/{city}',[HomeController::class,'index'])->where('city','[A-za-z]+');
 Route::get('restaurant/{city}/{town}',[HomeController::class,'index2'])->where(['city'=>'[A-za-z]+','town'=>'[A-za-z]+']);
 Route::get('restaurant/d/{id}', [HomeController::class,'index3']);
+Route::get('restaurant', [HomeController::class,'selectRestaurant']);
 
 
 Route::get('/login',[LoginController::class,'index']);
@@ -60,9 +62,14 @@ Route::get('profile/restaurant/add/product', [RestaurantController::class,'index
 Route::post('profile/restaurant/add/product', [RestaurantController::class,'addProduct']);
 
 
+Route::get('profile/user/{id}', [UserController::class,'index']);
+
+
 
 Route::get('/unauthenticated', function () {
-
+    return ('
+        İzinsiz giriş tespit edildi. Bu sayfaya girmeye yetkiniz yok.
+    ');
 })->name('unauthenticated');
 
 

@@ -18,7 +18,7 @@ class CreateOrders extends Migration
             $table->integer('user_id');
             $table->integer('restaurant_id');
             $table->integer('total');
-            $table->string('status');
+            $table->enum('status', ['preparing','complated','canceled'])->default('preparing');
             $table->string('note');
             $table->ipAddress('ip');
             $table->timestamps();
