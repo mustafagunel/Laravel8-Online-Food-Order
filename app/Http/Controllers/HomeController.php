@@ -13,7 +13,8 @@ class HomeController extends Controller
     //
     public function index($city){
         
-        $q = 'SELECT * FROM `product` INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
+        //$q = 'SELECT * FROM `product` INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
+        $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
         $tenProductAndRestaurant = DB::select($q);
         
         return view('Home.index',['city'=>$city,'tenProductAndRestaurant'=>$tenProductAndRestaurant]);

@@ -29,14 +29,20 @@ class RegisterController extends Controller
         }else{
 
             $user = new User;
-            $user->name= "name";
-            $user->surname= "surname";
+            $user->name= $request->name;
+            $user->surname= $request->surname;
             $user->email= $request->email;
             $user->password= Hash::make($request->password);
-            $user->save();
             
-            
-            return view('Home.Pages.home');
+
+            try{
+                $user->save();
+                return view('Login.success');
+             }
+             catch(\Exception $e){            
+                return view('Login.error');
+             }
+
 
         }
 

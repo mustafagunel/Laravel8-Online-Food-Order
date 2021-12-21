@@ -154,7 +154,7 @@ class AdminController extends Controller
 
                 $cities = DB::table('city')->get();
                 $page="restaurant-add";
-                return view('Admin.index',['page'=>$page,'cities'=>$cities]); 
+                return view('Admin.index',['page'=>$page,'success'=>"Restaurant başarı ile eklendi."]); 
             }
             else{
                 return redirect()->intended('unauthenticated');

@@ -2,25 +2,29 @@
 
 @section('title', 'Admin Page')
 
-@if($page == 'settings' || $page == 'index.html'  || $page == ''  || $page == 'index'  || $page == 'index.php ' )
+
+@if(isset($success))
+    @section('content')
+        @include('Admin.Pages.success');
+    @endsection
+
+@elseif($page == 'settings' || $page == 'index.html'  || $page == ''  || $page == 'index'  || $page == 'index.php ' )
     @section('content')
         @include('Admin.Pages.Content.settings');
     @endsection
-@endif
 
-@if($page == 'restaurant-list')
+@elseif($page == 'restaurant-list')
     @section('content')
         @include('Admin.Pages.Content.restaurant_list');
     @endsection
-@endif
 
-@if($page == 'user-list')
+@elseif($page == 'user-list')
     @section('content')
         @include('Admin.Pages.Content.user_list');
     @endsection
-@endif
 
-@if($page == 'restaurant-add')
+    
+@elseif($page == 'restaurant-add')
     @section('content')
         @include('Admin.Pages.Content.restaurant_add');
     @endsection
