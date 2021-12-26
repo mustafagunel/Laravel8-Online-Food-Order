@@ -7,68 +7,36 @@
         <button type="button" style="background-color: red;" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color:#eae2e230">
-            <a href="/restaurant/d/{{ $tenProductAndRestaurant[0]->rid }}" style="text-decoration:none">
-            <div class="slideItem d-flex" style="height:200px;">
-                <div class="col-4">
-                  <img src="/images/products/{{ $tenProductAndRestaurant[0]->image }}" class="d-block w-100" alt="...">
+        
+        @foreach($tenProductAndRestaurant as $tp)
+            @if($loop->iteration > 3)
+                @break
+            @endif
+            @if($loop->iteration == 1)
+                <div class="carousel-item active" style="background-color:#eae2e230">
+            @else
+                <div class="carousel-item" style="background-color:#eae2e230">
+            @endif
+                <a href="/restaurant/d/{{ $tp->rid }}" style="text-decoration:none">
+                <div class="slideItem d-flex" style="height:200px;">
+                    <div class="col-4">
+                    <img src="/images/products/{{ $tp->image }}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="col-7 offset-1">
+                        <div class="row">
+                            {{ $tp->title }} - {{ $tp->price }}
+                        </div>
+                        <div class="row">
+                            {{ $tp->description }}
+                        </div>
+                        <div class="row">
+                            {{ $tp->rtitle }} 
+                        </div>
+                    </div>
                 </div>
-                <div class="col-7 offset-1">
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[0]->title }} - {{ $tenProductAndRestaurant[0]->price }}
-                    </div>
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[0]->description }}
-                    </div>
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[1]->rtitle }} 
-                    </div>
-                </div>
+                </a>
             </div>
-            </a>
-        </div>
-        <div class="carousel-item -" style="background-color:#eae2e230">
-            <a href="/restaurant/d/{{ $tenProductAndRestaurant[0]->rid }}" style="text-decoration:none">
-            <div class="slideItem d-flex" style="height:200px;">
-                <div class="col-4">
-                  <img src="/images/products/{{ $tenProductAndRestaurant[0]->image }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="col-7 offset-1">
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[1]->title }} - {{ $tenProductAndRestaurant[0]->price }}
-                    </div>
-                    <div class="row">
-
-                    {{ $tenProductAndRestaurant[1]->description }}
-                    </div>
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[1]->rtitle }}
-                    </div>
-                </div>
-            </div>
-            </a>
-        </div>
-        <div class="carousel-item -" style="background-color:#eae2e230">
-            <a href="/restaurant/d/{{ $tenProductAndRestaurant[0]->rid }}" style="text-decoration:none">
-            <div class="slideItem d-flex" style="height:200px;">
-                <div class="col-4">
-                  <img src="/images/products/{{ $tenProductAndRestaurant[0]->image }}" class="d-block w-100" alt="...">
-                </div>
-                <div class="col-7 offset-1">
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[2]->title }} - {{ $tenProductAndRestaurant[0]->price }}
-                    </div>
-                    <div class="row">
-
-                    {{ $tenProductAndRestaurant[2]->description }}
-                    </div>
-                    <div class="row">
-                        {{ $tenProductAndRestaurant[1]->rtitle }} 
-                    </div>
-                </div>
-            </div>
-            </a>
-        </div>
+        @endforeach
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

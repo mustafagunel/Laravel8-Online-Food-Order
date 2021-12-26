@@ -21,7 +21,7 @@ class HomeController extends Controller
     }
     public function index2($city,$town){
         //$query='select product.*, restaurant.title as restaurant_name from product join restaurant on product.restaurant_id = restaurant.id where restaurant_id IN (SELECT restaurant_id from restaurant where town = (select id from town where name = "'.$town.'")) ';
-        $query = 'select * from restaurant where town = (select id from town where name= "'.$town.'")';
+        $query = 'select * from restaurant where town = (select id from town where name= "'.$town.'") and status="active"';
         $restaurants = DB::select($query);
         
         return view('Home.index',['city'=>$city,'town'=>$town,'restaurants'=>$restaurants]);

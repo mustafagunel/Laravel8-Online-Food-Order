@@ -11,6 +11,7 @@ class Restaurant extends Model
 
     protected $fillable = [
         'title',
+        'ownerID',
         'keywords',
         'description',
         'image',

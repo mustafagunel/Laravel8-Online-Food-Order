@@ -9,6 +9,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplicationController;
 
 
 
@@ -26,6 +27,7 @@ Route::get('restaurant/{city}',[HomeController::class,'index'])->where('city','[
 Route::get('restaurant/{city}/{town}',[HomeController::class,'index2'])->where(['city'=>'[A-za-z]+','town'=>'[A-za-z]+']);
 Route::get('restaurant/d/{id}', [HomeController::class,'index3']);
 Route::get('restaurant', [HomeController::class,'selectRestaurant']);
+Route::get('/', [HomeController::class,'selectRestaurant']);
 
 
 Route::get('/login',[LoginController::class,'index']);
@@ -41,6 +43,9 @@ Route::get('/admin', [AdminController::class,'index']);
 Route::get('/admin/{page}', [AdminController::class,'index2']);
 Route::post('/admin/update/settings', [AdminController::class,'update']);
 Route::post('/admin/add/restaurant', [AdminController::class,'addRestaurant']);
+Route::get('/admin/delete/restaurant/{id}', [AdminController::class,'deleteRestaurant'])->where('name','[0-9]+');
+Route::get('/admin/edit/restaurant/{id}', [AdminController::class,'updateRestaurant'])->where('name','[0-9]+');
+Route::post('/admin/update/restaurant', [AdminController::class,'updateRestaurantPost']);
 
 
 
@@ -66,6 +71,17 @@ Route::get('profile/user/{id}', [UserController::class,'index']);
 
 
 
+Route::get('/application-restaurant',[ApplicationController::class,'index']);
+Route::post('/application-restaurant',[ApplicationController::class,'applicationRegister']);
+
+
+
+
+
+
+
+
+
 Route::get('/unauthenticated', function () {
     return ('
         İzinsiz giriş tespit edildi. Bu sayfaya girmeye yetkiniz yok.
@@ -74,7 +90,3 @@ Route::get('/unauthenticated', function () {
 
 
 //->middleware('auth'); check login  middleware('auth:admin');
-
-Route::get('/', function () {
-    return view('welcome');
-});

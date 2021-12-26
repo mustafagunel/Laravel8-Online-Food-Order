@@ -28,4 +28,10 @@
     @section('content')
         @include('Admin.Pages.Content.restaurant_add');
     @endsection
+
+@elseif($page == 'update-restaurant')
+    @section('content')
+        @include('Admin.Pages.Content.update_restaurant');
+    @endsection
+
 @endif

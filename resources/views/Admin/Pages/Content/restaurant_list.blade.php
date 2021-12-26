@@ -18,27 +18,34 @@
                                 <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                    <th>#</th>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Age</th>
+                                    <th>#id</th>
+                                    <th>Name</th>
+                                    <th>Owner</th>
+                                    <th>User Type</th>
+                                    <th>Image</th>
                                     <th>City</th>
-                                    <th>Country</th>
-                                    <th>Sex</th>
-                                    <th>Example</th>
+                                    <th>Town</th>
+                                    <th>status</th>
+                                    <th>Update</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Anna</td>
-                                        <td>Pitt</td>
-                                        <td>35</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                        <td>Female</td>
-                                        <td>Yes</td>
-                                    </tr>
+                                    @foreach($restaurants as $r)
+                                        <tr>
+                                            <td>{{ $r->id }}</td>
+                                            <td>{{ $r->title }}</td>
+                                            <td>{{ $r->uEmail }}</td>
+                                            <td>{{ $r->uRole }}</td>
+                                            <td><img src="/images/restaurants-logo/{{ $r->image }}" width="50px" /></td>
+                                            <td>{{ $r->cName }}</td>
+                                            <td>{{ $r->tName }}</td>
+                                            <td>{{ $r->status }}</td>
+                                            <td>
+                                                <a class="btn btn-success btn-sm" href="/admin/edit/restaurant/{{ $r->id }}" role="button">Edit</a>
+                                                <a class="btn btn-danger btn-sm " href="/admin/delete/restaurant/{{ $r->id }}" role="button">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 </table>
                             </div>

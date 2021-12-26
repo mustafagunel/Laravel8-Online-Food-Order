@@ -36,15 +36,23 @@ class AdminController extends Controller
 
         if(Auth::user()){
             if(Auth::user()->role == "admin"){
-                
-                $name = Auth::user()->name;
                 if($page == "restaurant-add"){
                     $cities = DB::table('city')->get();
 
-                    return view('Admin.index',['page'=>$page,'cities'=>$cities,'name'=>$name]);                
+                    return view('Admin.index',['page'=>$page,'cities'=>$cities]);                
+                }elseif($page == "restaurant-list"){
+                    $query ='
+                    SELECT restaurant.*, users.id as uID, users.name as uName, users.email as uEmail,users.role as uRole , city.name as cName, town.name as tName FROM `restaurant` 
+                    JOIN users on restaurant.ownerID = users.id
+                    JOIN city on restaurant.city = city.id
+                    JOIN town on restaurant.town = town.id';
+                    
+                    $restaurants = DB::select($query);
+
+                    return view('Admin.index',['page'=>$page,'restaurants'=>$restaurants ]);                
                 }else{
                     $settings = Setting::all();
-                    return view('Admin.index',['page'=>$page,'settings'=>$settings[0],'name'=>$name]);
+                    return view('Admin.index',['page'=>$page,'settings'=>$settings[0]]);
                 }
             }
             else{
@@ -149,7 +157,9 @@ class AdminController extends Controller
                     'description' => $request->description,
                     'image' => $path,
                     'city' => $request->city,
-                    'town' =>  $request->town
+                    'town' =>  $request->town,
+                    'status'=>  'pending',
+                    'ownerID'=> Auth::user()->id
                 ]);
 
                 $cities = DB::table('city')->get();
@@ -165,11 +175,61 @@ class AdminController extends Controller
         }
     }
 
-/*temp
-    public function topla($s1,$s2){
-        $toplam = $s1+$s2;
-        return view('temp',['toplam'=>$toplam]);
+    function deleteRestaurant($id){
+        
+        if(Auth::user()->role == 'admin'){
+            /*
+            $query = 'DELETE FROM `restaurant` WHERE id='.$id;
+            $r = DB::delete($query);
+            */
+            DB::table('restaurant')->where('id', $id)->update(
+                [
+                    'status' => 'closed'
+                ]);
+
+            $query = 'update users set status = 0 where id = (select ownerID from restaurant where id='.$id.')';
+            DB::select($query);
+            
+            return view('Admin.index',['success'=>"Restaurant ve kullanıcısı başarılı bir şekilde kapatıldı."]);
+        
+        }else{
+            return view('unauthenticated');    
+        }
     }
-*/
+
+    function updateRestaurant($id){
+        
+        if(Auth::user()->role == 'admin'){                
+            $page = "update-restaurant";
+            $query = 'select * from restaurant where id='.$id;
+            $restaurant = DB::select($query); 
+            return view('Admin.index',['page'=>$page,'restaurant'=>$restaurant[0]]); 
+        
+        }else{
+            return view('unauthenticated');    
+        }
+    }
+
+
+    function updateRestaurantPost(Request $request){
+        if(Auth::user()->role == 'admin'){         
+            
+            $result = DB::table('restaurant')->where('id', $request->id)->update(
+                [
+                    'title' => $request->title,
+                    'keywords' => $request->keywords,
+                    'description' => $request->description,
+                    'status' => $request->status
+                ]);
+
+            $query = 'update users set role = "restaurant" where id = (select ownerID from restaurant where id='.$request->id.')';
+            DB::select($query);
+            
+            //kullanıcıya onaylandı mail'i iletilecek.
+            return view('Admin.index',['success'=>"Restaurant başarı ile güncellendi."]); 
+        }else{
+            return view('unauthenticated');    
+        }
+    }
 
 }
