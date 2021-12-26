@@ -15,7 +15,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="/profile/restaurant/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Settings</span></a>
+            <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -41,9 +41,26 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Orders
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/profile/restaurant/list/orders">
+            <i class="fas fa-fw fa-list-ol"></i>
+            <span>List</span>
+        </a>
+    </li>
+
+
+
+
+
+
        <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
         <p class="text-center mb-2"><strong>Yemek Diyarı</strong> yemeğin olduğu heryerde!</p>
     </div>
-
 </ul>

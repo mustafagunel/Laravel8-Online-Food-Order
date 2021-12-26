@@ -62,10 +62,12 @@ class CartController extends Controller
         }else{
             switch($type){
                 case "cash":
-                    $this->payment($cart);
+                    $t="cash";
+                    $this->payment($cart,$t);
                     break;
                 case "online-credit-cart":
-                    $this->payment($cart);
+                    $t="credit-cart";
+                    $this->payment($cart,$t);
                     break;
                 default:
                     break;
@@ -77,7 +79,7 @@ class CartController extends Controller
     }
 
 
-    public function payment($cart){
+    public function payment($cart,$t){
         $ip= $_SERVER['REMOTE_ADDR'];
 
         $total=0;
@@ -92,6 +94,7 @@ class CartController extends Controller
             'restaurant_id'=> $c['restaurant'],
             'total'=> $total,
             'note'=>'note',
+            'payment_type'=>$t,
             'ip'=>$ip,
             'created_at'=>date("Y-m-d H:i:s"),
             'updated_at'=>date("Y-m-d H:i:s")
@@ -118,7 +121,8 @@ class CartController extends Controller
 
         }
 
-
+        
+        $cart = session()->forget('cart');
 
     }
     

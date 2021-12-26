@@ -15,11 +15,13 @@ class UserController extends Controller
 {
     public function index($UID){
         
-        if(! (Auth::user()->id == $UID)){
+        if(Auth::user()->id != $UID){
             return redirect()->intended('unauthenticated');
         }
+        $q ='SELECT orders.*, restaurant.title as rname, restaurant.town as rtown  FROM orders JOIN restaurant on orders.restaurant_id = restaurant.id where user_id='.Auth::user()->id.' and orders.status="preparing" or orders.status="canceled"';
+        $orders = DB::select($q);
 
-        return view('User.index');
+        return view('User.index',['orders'=>$orders]);
     }
 
 }

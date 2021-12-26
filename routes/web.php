@@ -65,6 +65,13 @@ Route::get('profile/restaurant', [RestaurantController::class,'index']);
 Route::get('profile/restaurant/{page}', [RestaurantController::class,'index2']);
 Route::get('profile/restaurant/add/product', [RestaurantController::class,'index3']);
 Route::post('profile/restaurant/add/product', [RestaurantController::class,'addProduct']);
+Route::get('/profile/delete/product/{id}', [RestaurantController::class,'deleteProduct']);
+Route::get('/profile/update/product/{id}', [RestaurantController::class,'updateProduct']);
+Route::post('/profile/restaurant/update/product', [RestaurantController::class,'updateProduct2']);
+Route::get('/profile/restaurant/list/orders', [RestaurantController::class,'listOrders']);
+
+Route::get('/profile/complate/order/{id}', [RestaurantController::class,'complateOrder']);
+Route::get('/profile/cancel/order/{id}', [RestaurantController::class,'cancelOrder']);
 
 
 Route::get('profile/user/{id}', [UserController::class,'index']);

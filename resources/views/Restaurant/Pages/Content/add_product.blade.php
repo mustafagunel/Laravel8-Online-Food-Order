@@ -24,10 +24,6 @@
                                     <input type="text" class="form-control form-control-user" name="keywords" id="keywords"
                                         placeholder="Keywords">
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="description" id="description"
-                                        placeholder="Description">
-                                </div>
 
                                 <div class="form-group">
                                     <span>Upload Product İmage</span>

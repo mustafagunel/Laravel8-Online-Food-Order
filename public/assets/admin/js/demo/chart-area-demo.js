@@ -29,6 +29,20 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+
+var ocak = document.getElementById("ocak").innerHTML;
+var subat = document.getElementById("subat").innerHTML;
+var mart = document.getElementById("mart").innerHTML;
+var nisan = document.getElementById("nisan").innerHTML;
+var mayis = document.getElementById("mayis").innerHTML;
+var haziran = document.getElementById("haziran").innerHTML;
+var temmuz = document.getElementById("temmuz").innerHTML;
+var agustos = document.getElementById("agustos").innerHTML;
+var eylul = document.getElementById("eylul").innerHTML;
+var ekim = document.getElementById("ekim").innerHTML;
+var kasim = document.getElementById("kasim").innerHTML;
+var aralik = document.getElementById("aralik").innerHTML;
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +60,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [ocak, subat, mart, nisan, mayis, haziran, temmuz, agustos, eylul, ekim, kasim, aralik],
     }],
   },
   options: {

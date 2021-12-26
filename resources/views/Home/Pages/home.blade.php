@@ -43,7 +43,8 @@
                     @show
                 </div>
                 <div class="col-xl-2">
-                    @include('Home.right')
+                    @section('right')
+                    @show
                 </div>
 
             </div>

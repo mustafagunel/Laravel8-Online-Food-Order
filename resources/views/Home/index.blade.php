@@ -11,11 +11,19 @@
         @include('Home.products')
     @endsection
 
+    @section('right')
+        @include('Home.right')
+    @endsection
+
 @elseif (!isset($town) && isset($city)) 
     @section('title', $city.' - Online Yemek Siparişi, Paket Servis - Yemek Diyarı')
 
     @section('content')
         @include('Home.center')
+    @endsection
+
+    @section('right')
+        @include('Home.right')
     @endsection
 
 
@@ -24,6 +32,10 @@
 
     @section('content')
         @include('Home.restaurant_detail')
+    @endsection
+
+    @section('right')
+        @include('Home.right')
     @endsection
     
 
@@ -39,6 +51,11 @@
     @section('content')
         @include('Home.Cart.cart')
     @endsection
+
+    @section('right')
+        @include('Home.right')
+    @endsection
+    
     
 @endif
 

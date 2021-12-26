@@ -222,7 +222,7 @@ class AdminController extends Controller
                     'status' => $request->status
                 ]);
 
-            $query = 'update users set role = "restaurant" where id = (select ownerID from restaurant where id='.$request->id.')';
+            $query = 'update users set role = "restaurant", restaurant_id='.$request->id.' where id = (select ownerID from restaurant where id='.$request->id.')';
             DB::select($query);
             
             //kullanıcıya onaylandı mail'i iletilecek.

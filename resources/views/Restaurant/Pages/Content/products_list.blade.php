@@ -22,37 +22,30 @@
                                     <th>İmage</th>
                                     <th>Title</th>
                                     <th>Category</th>
-                                    <th>Detail</th>
+                                    <th>Description</th>
                                     <th>Price</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                    @php
-                                        foreach($products as $product){
-                                            print_r('
-                                                <tr>
-                                                    <td>'.$product->id.'</td>
-                                                    <td>
-                                                        <img src="/images/products/'.$product->image.'" style="width:50px;height:50px">
-                                                    </td>
-                                                    <td>'.$product->title.'</td>
-                                                    <td>'.$product->category_name.'</td>
-                                                    <td>'.$product->detail.'</td>
-                                                    <td>'.$product->price.'</td>
-                                                    <td>'.$product->status.'</td>
-                                                    <td>                                                        
-                                                        <button type="button" class="btn btn-warning">Düzenle</button>
-                                                        <button type="button" class="btn btn-danger">Sil</button>
-                                                    </td>
-                                                </tr>
-                                            ');
-                                        }
-
-                                    @endphp
-                                   
+                                    @foreach($products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td>
+                                                <img src="/images/products/{{ $product->image }}" style="width:50px;height:50px">
+                                            </td>
+                                            <td>{{ $product->title }}</td>
+                                            <td>{{ $product->category_name }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>{{ $product->price }}</td>
+                                            <td>@if($product->status == 1) Aktif @else Pasif @endif </td>
+                                            <td>                                                        
+                                                <a href="/profile/update/product/{{ $product->id }}"><button type="button" class="btn btn-warning">Düzenle</button></a>
+                                                <a href="/profile/delete/product/{{ $product->id }}"><button type="button" class="btn btn-danger">Sil</button></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 </table>
                             </div>
