@@ -28,7 +28,7 @@
                 </div>
                 <div class="input-group m-2">
                     <span class="input-group-text col-2">Adres</span>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" aria-label="With textarea">{{ Auth::user()->address }}</textarea>
                 </div>
 
                 <div class="input-group m-2">

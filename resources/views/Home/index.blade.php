@@ -55,7 +55,31 @@
     @section('right')
         @include('Home.right')
     @endsection
-    
-    
+
+@elseif(isset($page)) 
+    @if($page == "sss")
+        @section('content')
+            @include('Home.sss')
+        @endsection
+    @elseif($page == "ksozlesme")        
+        @section('content')
+            @include('Home.ksozlesmesi')
+        @endsection
+    @elseif($page == 'iletisim')
+        @if(isset($success))
+            @section('content')
+                @include('Home.success')
+            @endsection
+        @else
+            @section('content')
+                @include('Home.iletisim')
+            @endsection
+        @endif
+    @endif
+
+    @section('right')
+    @endsection
+
+
 @endif
 

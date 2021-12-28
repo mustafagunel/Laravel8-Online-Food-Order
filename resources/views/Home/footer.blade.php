@@ -4,31 +4,27 @@
             <div class="d-flex col-5 offset-1" style="font-size:small; color:red" >
                 <div class="col-4">
                     <ul style="list-style:none;">
-                        <li>S.S.S. ve İşlem Rehberi</li>
-                        <li>Kullanıcı Sözleşmesi</li>
-                        <li>Aydınlatma Metni</li>
-                        <li>Bilgi Toplumu Hizmetleri</li>
+                        <a href="/sss" style="text-decoration:none"><li>S.S.S. ve İşlem Rehberi</li></a>
+                        <a href="/kullanicisozlesmesi" style="text-decoration:none"><li>Kullanıcı Sözleşmesi</li></a>
+                        <a href="/aydinlatmametni" style="text-decoration:none"><li>Aydınlatma Metni</li></a>
                     </ul>
                 </div>
                 <div class="col-4">
                     <ul style="list-style:none;">
-                        <li>İletişim</li>
-                        <li>Fırsatlar</li>
-                        <li>Restoran Portal</li>
-                        <li>Restoran Öner</li>
+                    <a href="/iletisim" style="text-decoration:none"><li>İletişim</li></a>
+                        <a href="/application-restaurant" style="text-decoration:none"><li>Yemeksepeti Restaurant Başvuru</li> </a>
                     </ul>
                 </div>
                 <div class="col-4">
                     <ul style="list-style:none;">
-                        <li>Mutfaklar & Zincir Restoranlar</li>
-                        <li>Yemeksepeti Mahalle Başvuru</li>
+                        <li></li>
                     </ul>
                 </div>
             </div>
             <div class="social-media d-flex justify-content-between col-2">
-                <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-                <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-                <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
+                <a href="https://{{ $settings->facebook }}"> <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+                <a href="https://{{ $settings->instagram }}"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
+                <a href="https://{{ $settings->twitter     }}"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a>
             </div>
             <div class="col-1"></div>
         </div>

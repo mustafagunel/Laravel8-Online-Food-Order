@@ -48,6 +48,7 @@ class ApplicationController extends Controller
                     'city' => $request->city,
                     'town' =>  $request->town,
                     'status'=>  'pending',
+                    'point'=>10,
                     'ownerID'=> Auth::user()->id
                 ]);
 

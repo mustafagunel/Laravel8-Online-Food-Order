@@ -35,30 +35,59 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" action="/register" method="POST">
+                            <form class="user" action="/register" method="POST"
+                            oninput='rpassword.setCustomValidity(rpassword.value != password.value ? "Passwords do not match." : "")'
+                            >
                                 <div class="form-group row">
                                 @csrf   
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="name" name="name"
-                                            placeholder="First Name">
+                                            placeholder="First Name" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" name="surname"
-                                            placeholder="Last Name">
+                                            placeholder="Last Name" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" name="email"
-                                        placeholder="Email Address">
+                                        placeholder="Email Address" required>
+                                </div>
+
+                                <div class="form-group">
+                                        <label class="input-group-text" for="inputGroupSelect01">City</label>
+                                        <select class="form-select" name="city" id="city" onchange="changeTown()" require>
+                                                <option selected>Seç</option>
+                                                @php
+                                                    foreach($cities as $city){
+                                                        print_r('<option value="'.$city->id.'">'.$city->name.'</option>');
+                                                    }
+                                                @endphp
+                                            
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Town</label>
+                                    <select class="form-select" id="town" name="town" require>
+                                        <option selected>Seç</option>
+                                    </select>
+                                </div>      
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Address" name="address"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            name="password" placeholder="Password">
+                                            name="password" placeholder="Password" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            name="rpassword" placeholder="Repeat Password">
+                                            name="rpassword" placeholder="Repeat Password"  required>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-user btn-block" type="submit"> Kayıt ol</button>
@@ -87,6 +116,43 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets') }}/admin/js/sb-admin-2.min.js"></script>
+
+
+
+    <script>
+        function changeTown() {
+                
+                $("#town").empty();
+                var city = document.getElementById("city").value;
+                var sel = document.getElementById('town');
+
+                $.ajax({
+                    url : '/get/town',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "city": city
+                        },
+                    type: 'post',
+                    success: function( result )
+                    {
+                        result.forEach(town => {
+                            var opt = document.createElement('option');
+                            opt.value = town.id;
+                            opt.innerHTML = town.name;
+                            sel.appendChild(opt);
+                        });
+
+                    },
+                    error: function()
+                    {
+                        alert('error...');
+                    }
+                });
+            }
+       
+
+        
+    </script>
 
 </body>
 

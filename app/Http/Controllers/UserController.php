@@ -21,7 +21,9 @@ class UserController extends Controller
         $q ='SELECT orders.*, restaurant.title as rname, restaurant.town as rtown  FROM orders JOIN restaurant on orders.restaurant_id = restaurant.id where user_id='.Auth::user()->id.' and orders.status="preparing" or orders.status="canceled"';
         $orders = DB::select($q);
 
-        return view('User.index',['orders'=>$orders]);
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        return view('User.index',['orders'=>$orders,'settings'=>$settings[0]]);
     }
 
 }

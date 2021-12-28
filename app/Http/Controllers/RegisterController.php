@@ -18,7 +18,8 @@ class RegisterController extends Controller
         if(Auth::user()){
             return redirect()->intended('restaurant/istanbul');
         }else{
-            return view('Login.register');
+            $cities = DB::table('city')->get();
+            return view('Login.register',['cities'=>$cities]);
         }
     }
 
@@ -33,6 +34,9 @@ class RegisterController extends Controller
             $user->surname= $request->surname;
             $user->email= $request->email;
             $user->password= Hash::make($request->password);
+            $user->address= $request->address;
+            $user->city= $request->city;
+            $user->town= $request->town;
             
 
             try{
