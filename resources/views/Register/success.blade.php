@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Title</title>
+    <title>Login Page</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets') }}/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,32 +20,19 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets') }}/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <meta http-equiv="refresh" content="3;url=/">
-
 </head>
 
 <body class="bg-gradient-primary">
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="container" style="background-color:#ac999f0f">
-                        <div class="col-12">
-                            <i class="fa fa-check-circle fa-5x d-flex justify-content-center p-3" style="color:green; " aria-hidden="true"></i>
-                        </div>
-                        <div class="col-12 d-flex justify-content-center p-3">
-                            BAŞARILI.
-                        </div>
-                        <div class="row">
-                            <small>Başvuru formunuz başarı ile iletildi. Başvuru sonucu mail adresinize
-                                iletilecektir. Anasayfaya yönlendiriliyorsunuz</small>
-                        </div>
-                    </div>
-                    </div>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="container p-5 mt-5" style="background-color:white">
+                <div class="col-12">
+                    <i class="fa fa-check-circle fa-5x d-flex justify-content-center p-3" style="color:green; " aria-hidden="true"></i>
+                </div>
+                <div class="col-12 d-flex justify-content-center p-3">
+                    {{ $success }}
                 </div>
             </div>
         </div>
@@ -62,6 +49,9 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets') }}/admin/js/sb-admin-2.min.js"></script>
 
+
 </body>
 
 </html>
+
+

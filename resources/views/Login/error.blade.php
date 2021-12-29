@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets') }}/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <meta http-equiv="refresh" content="3;url=/register">
+    <meta http-equiv="refresh" content="3;url=/login">
 
 </head>
 
@@ -38,10 +38,14 @@
                             <i class="fa fa-exclamation fa-5x d-flex justify-content-center p-3" style="color:red; " aria-hidden="true"></i>
                         </div>
                         <div class="col-12 d-flex justify-content-center p-3">
-                            KAYIT İŞLEMİ BAŞARISIZ !
+                            @if(isset($error))
+                                {{$error}}
+                            @else
+                                KAYIT İŞLEMİ BAŞARISIZ !
+                            @endif
                         </div>
                         <div class="row">
-                            <small>Kayıt sayfasına yönlendiriliyorsunuz.</small>
+                            <small>Giriş sayfasına yönlendiriliyorsunuz.</small>
                         </div>
                     </div>
                     </div>

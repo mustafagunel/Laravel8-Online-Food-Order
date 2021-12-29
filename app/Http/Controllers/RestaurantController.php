@@ -14,9 +14,9 @@ use App\Models\Product;
 
 class RestaurantController extends Controller
 {
+
     public function index(){
         
-        $page="dashboard";
         $query = "select SUM(total) as last_month from orders where restaurant_id =".Auth::user()->restaurant_id." and created_at > DATE_ADD( now( ) , INTERVAL -1 MONTH ) ";
         $r = DB::select($query);
         $sales[0]= $r[0];
@@ -62,118 +62,140 @@ class RestaurantController extends Controller
         $sales[2]['aralik'] = $r[0]->aralik;
         
 
-        
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                return view('Restaurant.index',['page'=>$page,'sales'=>$sales]);
-            }
-            else{
-                return redirect()->intended('unauthenticated');
-            }
-        }else{
-            return redirect()->intended('login');
-        }
+        return view('Restaurant.Page.dashboard',['sales'=>$sales]);
         
     }
 
-    public function index2($page){
-        if(!isset($page))
-            $page="dashboard";
 
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                $q = "SELECT product.* , category.title as category_name FROM  product join category on product.category_id = category.id where restaurant_id=".Auth::user()->restaurant_id;
-                $products = DB::select($q);
+    public function listProducts(){
 
-                return view('Restaurant.index',['page'=>$page,'products'=>$products]);
-            }
-            else{
-                return redirect()->intended('unauthenticated');
-            }
-        }else{
-            return redirect()->intended('login');
-        }
+        $q = "SELECT product.* , category.title as category_name FROM  product join category on product.category_id = category.id where restaurant_id=".Auth::user()->restaurant_id;
+        $products = DB::select($q);
+
+        return view('Restaurant.Page.listProducts',['products'=>$products]);
     }
 
-    public function index3(){
+    public function addProductPage(){
         
-        $page="add-product";
-
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                $categories = Category::all();
-
-                return view('Restaurant.index',['page'=>$page,'categories'=>$categories]);
-            }
-            else{
-                return redirect()->intended('unauthenticated');
-            }
-        }else{
-            return redirect()->intended('login');
-        }
+        $categories = Category::all();
+        return view('Restaurant.Page.addProduct',['categories'=>$categories]);
     }
 
     public function addProduct(Request $request){
+        $categories = Category::all();
+        $product = new Product;
+        $res = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                
-                $page="add-product";
-                $categories = Category::all();
+        $imageName = time().'.'.$request->image->extension();  
+        $request->image->move(public_path('images/products'), $imageName);
+        $path = $imageName;
 
+        $restaurant_id = Auth::User()->restaurant_id;
+        $price = str_replace(',','.',$request->price);
 
-                $product = new Product;
-                $res = $request->validate([
-
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $product->title= $request->title;
+        $product->keywords= $request->keywords;
+        $product->description= $request->description;
+        $product->image= $path;
+        $product->category_id= $request->category;
+        $product->restaurant_id= $restaurant_id;
+        $product->detail= $request->detail;
+        $product->price= $price;  
+        $product->status= 1;
+        $result = $product->save();
         
-                ]);
+        if($result)
+            return view('Restaurant.Page.addProduct',['categories'=>$categories,'success'=>"Ürün başarılı bir şekilde eklendi."]);
+        else
+            return view('Restaurant.Page.addProduct',['categories'=>$categories,'error'=>"Ürün eklenirken bir sorun oluştu!"]);
+    }
 
-                $imageName = time().'.'.$request->image->extension();  
-                $request->image->move(public_path('images/products'), $imageName);
-                $path = $imageName;
+    function listOrders(){
+        $q='SELECT orders.*, users.email as uEmail, users.id as uID 
+        FROM orders 
+        JOIN users on orders.user_id = users.id
+        where orders.restaurant_id='.Auth::user()->restaurant_id.' order by id desc';
+        $orders = DB::select($q);
+        
+        return view('Restaurant.Page.listOrders',['orders'=>$orders]);
+    }
 
-                $restaurant_id = Auth::User()->restaurant_id;
-                $price = str_replace(',','.',$request->price);
+    function complateOrder($id){
+        $res= DB::table('orders')
+            ->where('id', $id)
+            ->where('restaurant_id', Auth::user()->restaurant_id)
+            ->update(
+            [
+                'status' => 'complated'
+            ]);
+        if($res)
+            return view('Restaurant.Page.success',['success'=>'Sipariş Tamamlandı']); 
+        else
+            return view('Restaurant.Page.error',['error'=>'Sipariş tamamlanırken sorun oluştu!']); 
+    }
 
-
-
-                $product->title= $request->title;
-                $product->keywords= $request->keywords;
-                $product->description= $request->description;
-                $product->image= $path;
-                $product->category_id= $request->category;
-                $product->restaurant_id= $restaurant_id;
-                $product->detail= $request->detail;
-                $product->price= $price;  
-                $product->status= 1;
-                $result = $product->save();
-                
-                if($result)
-                    return view('Restaurant.index',['page'=>$page,'categories'=>$categories,'success'=>"Ürün başarılı bir şekilde eklendi."]);
-                else
-                    return view('Restaurant.index',['page'=>$page,'categories'=>$categories]);
+    function cancelOrder($id){
+        $res= DB::table('orders')
+            ->where('id', $id)
+            ->where('restaurant_id', Auth::user()->restaurant_id)
+            ->update(
+            [
+                'status' => 'canceled'
+            ]);
             
-            }
-            else{
-                return redirect()->intended('unauthenticated');
-            }
-        }else{
-            return redirect()->intended('login');
-        }
+        if($res)
+            return view('Restaurant.Page.success',['success'=>'Sipariş Başarıyla İptal Edildi']); 
+        else
+            return view('Restaurant.Page.error',['error'=>'Sipariş iptal edilirken sorun oluştu!']); 
     }
 
     function deleteProduct($id){
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-
-                $query = 'DELETE FROM product WHERE id='.$id.' and restaurant_id='.Auth::user()->restaurant_id;
-                $r = DB::delete($query);
-                if($r)
-                    return view('Restaurant.index',['success'=>"Ürün başarılı bir şekilde silindi."]);
-            }
-        }
+        $query = 'DELETE FROM product WHERE id='.$id.' and restaurant_id='.Auth::user()->restaurant_id;
+        $res = DB::delete($query);
+        if($res)
+            return view('Restaurant.Page.success',['success'=>'Sipariş Başarıyla İptal Edildi']); 
+        else
+            return view('Restaurant.Page.error',['error'=>'Sipariş iptal edilirken sorun oluştu!']); 
     }
+
+    function updateProductPage($id){
+        $q = "select * from product where id =".$id.' and restaurant_id = '.Auth::user()->restaurant_id;
+        $product = DB::select($q);
+
+        if($product)
+            return view('Restaurant.Page.updateProduct',['product'=>$product[0]]); 
+        else
+            return view('Restaurant.Page.error',['error'=>'Ürün bilgisi çekilirken bir hata oluştu!']); 
+    }
+
+    function updateProduct(Request $request){
+            
+        $res= DB::table('product')
+            ->where('id', $request->id)
+            ->where('restaurant_id', Auth::user()->restaurant_id)
+            ->update(
+            [
+                'title' => $request->title,
+                'keywords' => $request->keywords,
+                'description' => $request->description,
+                'price' => $request->price,
+                'status' => $request->status
+            ]);
+        
+        if($res)
+            return view('Restaurant.Page.success',['success'=>"Ürün başarılı şekilde güncellendi."]);
+        else
+            return view('Restaurant.Page.error',['error'=>"Ürün güncellenirken bir sorun oluştu!"]);
+    }
+
+
+
+/*
+    
+
+    
 
     function updateProduct($id){
         if(Auth::user()){
@@ -189,93 +211,11 @@ class RestaurantController extends Controller
         }
     }
 
-    function updateProduct2(Request $request){
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                
-                if($request->status == 1)
-                    $s = 1;
-                else
-                    $s = 0;
-                    
-                $res= DB::table('product')
-                    ->where('id', $request->id)
-                    ->where('restaurant_id', Auth::user()->restaurant_id)
-                    ->update(
-                    [
-                        'title' => $request->title,
-                        'keywords' => $request->keywords,
-                        'description' => $request->description,
-                        'price' => $request->price,
-                        'status' => $s
-                    ]);
-                
-                if($res)
-                    return view('Restaurant.index',['success'=>"Ürün başarılı şekilde güncellendi."]);
-                else
-                    return view('Restaurant.index',['error'=>"başarısız"]);
-            }
-        }
-    }
+    
 
-    function listOrders(){
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                $q='SELECT orders.*, users.email as uEmail, users.id as uID 
-                FROM orders 
-                JOIN users on orders.user_id = users.id
-                where orders.restaurant_id='.Auth::user()->restaurant_id.' order by id desc';
-                $orders = DB::select($q);
-                
-                return view('Restaurant.index',['page'=>'list-orders','orders'=>$orders]);        
-            }else{
-                return view('unauthenticated');
-            }
-        }else{
-            return view('unauthenticated');
-        }
-    }
+    
 
-    function complateOrder($id){
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                
-                $res= DB::table('orders')
-                    ->where('id', $id)
-                    ->where('restaurant_id', Auth::user()->restaurant_id)
-                    ->update(
-                    [
-                        'status' => 'complated'
-                    ]);
-                    
-                return view('Restaurant.index',['success'=>'Sipariş Tamamlandı']);        
-            }else{
-                return view('unauthenticated');
-            }
-        }else{
-            return view('unauthenticated');
-        }
-    }
-    function cancelOrder($id){
-        if(Auth::user()){
-            if(Auth::user()->role == "restaurant"){
-                
-                $res= DB::table('orders')
-                    ->where('id', $id)
-                    ->where('restaurant_id', Auth::user()->restaurant_id)
-                    ->update(
-                    [
-                        'status' => 'canceled'
-                    ]);
-                    
-                return view('Restaurant.index',['success'=>'Sipariş İptal Edildi']);        
-            }else{
-                return view('unauthenticated');
-            }
-        }else{
-            return view('unauthenticated');
-        }
-    }
+    
 
     function getOrderDetail($id){
         $q = 'SELECT orders.*, product.title as pName, users.email as uEmail, 
@@ -289,5 +229,5 @@ class RestaurantController extends Controller
 
 
     }
-
+*/
 }

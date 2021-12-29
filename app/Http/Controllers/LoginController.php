@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
     public function index(){
 
         if(Auth::user()){
-            return redirect()->intended('restaurant/istanbul');
+            return redirect()->back();
         }else{
             return view('Login.login');
         }
@@ -22,25 +23,27 @@ class LoginController extends Controller
     {
 
         if(Auth::user()){
-            return redirect()->intended('restaurant/istanbul');
+            return redirect()->back();
         }else{
-
-            
-
+            /*
             $credentials = $request->validate([
                 'email' => ['required', 'email'],
                 'password' => ['required']
             ]);
+            */
+            $email =$request->email;
+            $password =$request->password;
             
             //if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
-            if (Auth::attempt($credentials)) {
+            //if (Auth::attempt($credentials)) {
+            if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1])){
                 $request->session()->regenerate();
                 return redirect()->intended('restaurant/istanbul');
+            }else{
+                return view('Login.error',['error'=>"Giriş başarısız. Hesabın aktif edilmemiş veya giriş bilgilerin yanlış olabilir."]);    
             }
 
-            return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
-            ]);
+            
         }
         
     }

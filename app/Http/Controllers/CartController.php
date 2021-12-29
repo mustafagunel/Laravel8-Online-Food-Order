@@ -21,7 +21,9 @@ class CartController extends Controller
             $rID = $c['restaurant'];
         }
         $min = DB::table('restaurant')->select('min_cart')->where('id',$rID)->get(); 
-        return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0]]);
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        return view('Home.Page.cartHome',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'settings'=>$settings[0]]);
     }
 
     function checkOut(Request $request, $type){
@@ -35,7 +37,10 @@ class CartController extends Controller
                 $rID = $c['restaurant'];
             }
             $min = DB::table('restaurant')->select('min_cart')->where('id',$rID)->get(); 
-            return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
+
+            $q2 = 'select * from settings';
+            $settings = DB::select($q2);
+            return view('Home.Page.cartHome',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert,'settings'=>$settings[0]]);
         }
 
         $cart = session()->get('cart', []);
@@ -58,7 +63,10 @@ class CartController extends Controller
                 $rID = $c['restaurant'];
             }
             $min = DB::table('restaurant')->select('min_cart')->where('id',$rID)->get(); 
-            return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
+
+            $q2 = 'select * from settings';
+            $settings = DB::select($q2);
+            return view('Home.Page.cartHome',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert,'settings'=>$settings[0]]);
         }else{
             switch($type){
                 case "cash":
@@ -73,7 +81,9 @@ class CartController extends Controller
                     break;
             }
             
-            return view('User.index',['success'=>"Ödeme işlemi başarılı şekilde gerçekleştirildi."]);
+            $q2 = 'select * from settings';
+            $settings = DB::select($q2);
+            return view('Home.Page.cartHome',['success'=>"Ödeme işlemi başarılı şekilde gerçekleştirildi.",'settings'=>$settings[0]]);
         }
 
     }
@@ -127,8 +137,9 @@ class CartController extends Controller
     }
     
     public function paymentFail(){
-        
-        return view('Home.index',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert]);
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        return view('Home.Page.cartHome',['cart'=>$cart,'total'=>$_total,'min'=>$min[0],'alert'=>$alert,'settings'=>$settings[0]]);
     }
 
 

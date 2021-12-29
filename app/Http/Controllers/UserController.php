@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $q2 = 'select * from settings';
         $settings = DB::select($q2);
-        return view('User.index',['orders'=>$orders,'settings'=>$settings[0]]);
+        return view('Home.Page.userProfile',['orders'=>$orders,'settings'=>$settings[0]]);
     }
 
 }

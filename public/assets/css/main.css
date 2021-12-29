@@ -7,6 +7,15 @@ header{
     margin-right: 0 !important;
 }
 
+.lwSearchItem{
+    padding: 5px;
+    background-color: antiquewhite;
+    color: black;
+}.lwSearchItem:hover{
+    background-color:burlywood;
+    color: black;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     
