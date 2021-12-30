@@ -30,6 +30,7 @@
                     <span class="input-group-text col-2">Adres</span>
                     <textarea class="form-control" aria-label="With textarea">{{ Auth::user()->address }}</textarea>
                 </div>
+                Town ve City güncelleme de eklenecek.
 
                 <div class="input-group m-2">
                     <button type="submit" class="btn btn-primary">
@@ -60,6 +61,7 @@
             </div>
         </div> 
     </div>
+    Geçmiş siparişler de eklenecek / siparişi tekrarla butonu olacak
       @foreach($orders as $order)
         <div class="container" style="border-width:thin;border-style: solid;border-color: #fa005045;">   
             <div class="row p-2">

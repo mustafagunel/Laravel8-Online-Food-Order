@@ -94,9 +94,9 @@ class HomeController extends Controller
     public function getrestaurantlw(Request $request){
         $search2 =$request->input('search2');
 
-        $count = Restaurant::where('title','like','%'.$search2.'%')->get()->count();
+        $count = Restaurant::where('title','like','%'.$search2.'%')->where('town','=',Auth::user()->town)->get()->count();
         if($count ==1){
-            $data = Restaurant::where('title','like','%'.$search2.'%')->get()->first();
+            $data = Restaurant::where('title','like','%'.$search2.'%')->where('town','=',Auth::user()->town)->get()->first();
             return redirect()->route('restaurant',['id'=>$data->id,'title'=>$data->title]);
         }else{
             return redirect()->route('restaurantlist',['search2'=>$search2]);    
