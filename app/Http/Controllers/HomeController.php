@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Restaurant;
@@ -23,6 +24,15 @@ class HomeController extends Controller
 
     public function index($city){
         
+        if(Auth::user()){
+            $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where restaurant.town = '.Auth::user()->town.'  LIMIT 10';
+            $tenProductAndRestaurant = DB::select($q);
+    
+            $settings[] = $this->getSettings();
+            
+            return view('Home.Page.cityHome',['city'=>$city,'tenProductAndRestaurant'=>$tenProductAndRestaurant,'settings'=>$settings[0]]);    
+        }
+
         //$q = 'SELECT * FROM `product` INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
         $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
         $tenProductAndRestaurant = DB::select($q);
@@ -84,9 +94,9 @@ class HomeController extends Controller
     public function getrestaurantlw(Request $request){
         $search2 =$request->input('search2');
 
-        $count = Restaurant::where('title','like','%'.$search2.'%')->get()->count();
+        $count = Restaurant::where('title','like','%'.$search2.'%')->where('town','=',Auth::user()->town)->get()->count();
         if($count ==1){
-            $data = Restaurant::where('title','like','%'.$search2.'%')->get()->first();
+            $data = Restaurant::where('title','like','%'.$search2.'%')->where('town','=',Auth::user()->town)->get()->first();
             return redirect()->route('restaurant',['id'=>$data->id,'title'=>$data->title]);
         }else{
             return redirect()->route('restaurantlist',['search2'=>$search2]);    

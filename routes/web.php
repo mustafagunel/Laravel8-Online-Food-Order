@@ -57,6 +57,8 @@ Route::middleware('restaurant')->get('/profile/delete/product/{id}', [Restaurant
 Route::middleware('restaurant')->get('/profile/update/product/{id}', [RestaurantController::class,'updateProductPage']);
 Route::middleware('restaurant')->post('/profile/restaurant/update/product', [RestaurantController::class,'updateProduct']);
 
+Route::middleware('restaurant')->get('/profile/detail/order/{id}', [RestaurantController::class,'getOrderDetail']);
+
 Route::middleware('admin')->get('/admin', [AdminController::class,'index']);
 Route::middleware('admin')->get('/admin/settings', [AdminController::class,'index']);
 Route::middleware('admin')->get('/admin/restaurant-list', [AdminController::class,'listRestaurants']);
@@ -81,6 +83,11 @@ Route::get('/login',[LoginController::class,'index']);
 Route::post('/login', [LoginController::class,'authenticate']);
 Route::get('/logout', [LoginController::class,'logout']);
 
+
+Route::middleware('user')->get('/application-restaurant',[ApplicationController::class,'index']);
+Route::middleware('user')->post('/application-restaurant',[ApplicationController::class,'applicationRegister']);
+
+Route::get('/user/activate/{token}',[RegisterController::class,'activateUser']);
 
 /*
 
@@ -108,8 +115,6 @@ Route::get('profile/restaurant/{page}', [RestaurantController::class,'index2']);
 
 
 
-Route::get('/application-restaurant',[ApplicationController::class,'index']);
-Route::post('/application-restaurant',[ApplicationController::class,'applicationRegister']);
 
 
 */

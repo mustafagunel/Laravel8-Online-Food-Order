@@ -105,6 +105,7 @@ class CartController extends Controller
             'total'=> $total,
             'note'=>'note',
             'payment_type'=>$t,
+            'address'=>Auth::user()->address,
             'ip'=>$ip,
             'created_at'=>date("Y-m-d H:i:s"),
             'updated_at'=>date("Y-m-d H:i:s")

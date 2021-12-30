@@ -5,11 +5,10 @@
     @if(!empty($query2))
         <datalist id="mylist2" class="input-group-append" style="display:contents">
             @foreach($datalist2 as $rs2)
+            <a href="/restaurant/d/{{ $rs2->id }}" style="text-decoration:none">
                 <option class="lwSearchItem"  value="{{$rs2->id}}">{{$rs2->title}}</option>
+            </a>
             @endforeach
-        </datalist>
-    @else
-        <datalist id="mylist2" class="input-group-append" style="display:contents">
         </datalist>
     @endif
 
