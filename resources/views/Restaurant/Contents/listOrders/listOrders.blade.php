@@ -1,6 +1,6 @@
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Products List</h1>
+    <h1 class="h3 mb-0 text-gray-800">Order List</h1>
 </div>
 
 <!-- Content Row -->
@@ -38,6 +38,8 @@
                                                 <td>{{ $order->created_at }} </td>
                                                 <td>                                                        
                                                     <a href="/profile/complate/order/{{ $order->id }}"><button type="button" class="btn btn-success">Tamamla</button></a>
+                                                    <a href="/profile/detail/order/{{ $order->id }}" target="popup"
+                                                    onclick="window.open('/profile/detail/order/{{ $order->id }}','popup','width=600,height=600'); return false;" ><button type="button" class="btn btn-info">Detail</button></a>
                                                     <a href="/profile/cancel/order/{{ $order->id }}"><button type="button" class="btn btn-danger">İptal</button></a>
                                                 </td>
                                             </tr>

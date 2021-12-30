@@ -24,40 +24,40 @@ class RestaurantController extends Controller
         $r = DB::select($query);
         $sales[1]= $r[0];
         
-        $query = "select SUM(total) as ocak from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 1";
+        $query = "select SUM(total) as ocak from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 1 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['ocak'] = $r[0]->ocak;
-        $query = "select SUM(total) as subat from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 2";
+        $query = "select SUM(total) as subat from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 2 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['subat'] = $r[0]->subat;
-        $query = "select SUM(total) as mart from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 3";
+        $query = "select SUM(total) as mart from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 3 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['mart'] = $r[0]->mart;
-        $query = "select SUM(total) as nisan from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 4";
+        $query = "select SUM(total) as nisan from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 4 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['nisan'] = $r[0]->nisan;
-        $query = "select SUM(total) as mayis from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 5";
+        $query = "select SUM(total) as mayis from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 5 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['mayis'] = $r[0]->mayis;
-        $query = "select SUM(total) as haziran from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 6";
+        $query = "select SUM(total) as haziran from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 6 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['haziran'] = $r[0]->haziran;
-        $query = "select SUM(total) as temmuz from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 7";
+        $query = "select SUM(total) as temmuz from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 7 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['temmuz'] = $r[0]->temmuz;
-        $query = "select SUM(total) as agustos from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 8";
+        $query = "select SUM(total) as agustos from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 8 and status != 'canceled'" ;
         $r = DB::select($query);
         $sales[2]['agustos'] = $r[0]->agustos;
-        $query = "select SUM(total) as eylul from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 9";
+        $query = "select SUM(total) as eylul from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 9 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['eylul'] = $r[0]->eylul;
-        $query = "select SUM(total) as ekim from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 10";
+        $query = "select SUM(total) as ekim from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 10 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['ekim'] = $r[0]->ekim;
-        $query = "select SUM(total) as kasim from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 11";
+        $query = "select SUM(total) as kasim from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 11 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['kasim'] = $r[0]->kasim;
-        $query = "select SUM(total) as aralik from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 12";
+        $query = "select SUM(total) as aralik from orders where restaurant_id =".Auth::user()->restaurant_id." and MONTH(created_at) = 12 and status != 'canceled'";
         $r = DB::select($query);
         $sales[2]['aralik'] = $r[0]->aralik;
         
@@ -190,6 +190,18 @@ class RestaurantController extends Controller
             return view('Restaurant.Page.error',['error'=>"Ürün güncellenirken bir sorun oluştu!"]);
     }
 
+    function getOrderDetail($id){
+
+        
+        $q = 'SELECT orders.id as orderID,orders.payment_type,orders.total as orderTotal,orders.note as orderNote, orders.address ,orders_products. *, product.title,product.description, users.name, users.surname,users.email FROM orders 
+        JOIN orders_products on orders.id = orders_products.order_id
+        JOIN product on orders_products.product_id = product.id
+        JOIN users on orders.user_id = users.id
+        where orders.id ='.$id;
+        $order = DB::select($q);
+
+        return view('Restaurant.Page.orderDetail',['order'=>$order]);
+    }
 
 
 /*

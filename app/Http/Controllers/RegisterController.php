@@ -60,6 +60,16 @@ class RegisterController extends Controller
         }
     }
 
+    function activateUser($token){
+        $r=DB::table('users')->where('token', $token)->update(
+        [
+            'status' => '1'
+        ]);
+        if($r)
+            return view('Register.success',['success'=>"Hesabınız Aktif Edildi"]);
+        else 
+            return view('Register.error',['error'=>"Hata. Hesap aktif edilemedi."]);
+    }
 
     public function sendMail($to,$token){
         

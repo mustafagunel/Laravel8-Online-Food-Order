@@ -35,13 +35,13 @@
                 '.$c['name'].'
             </div>
             <div class="col-2">
-                '.$c['price'].'
+                '.$c['price'].' TL
             </div>
             <div class="col-2">
                 '.$c['quantity'].'
             </div>
             <div class="col-2">
-                '.$c['price']*$c['quantity'].'
+                '.$c['price']*$c['quantity'].' TL
             </div>
         </div>';
         print_r($x);
@@ -54,7 +54,7 @@
             Toplam : 
         </div>
         <div class="col-2">
-        {{ $total }}
+        {{ $total }} TL
         </div>
     </div>
 
@@ -62,7 +62,7 @@
        
         <div class="col-12" >
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                 <label class="form-check-label" for="flexRadioDefault1">
                     Online / Kredi Kartı
                 </label>
@@ -82,17 +82,12 @@
                             <span class="input-group-text">Güvenlik (CVC2) Kodu: </span>
                             <input type="text" aria-label="Last name" class="form-control" required>
                         </div>
-
-                        <div class="mb-3 form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">3D Secure ile öde </label>
-                        </div>
                         <button type="submit" class="btn btn-primary payment">Sipariş Ver</button>
                     </form>
                 </div>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
                 <label class="form-check-label" for="flexRadioDefault2">
                     Kapıda Ödeme
                 </label>
