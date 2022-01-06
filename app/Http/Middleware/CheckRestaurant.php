@@ -25,7 +25,7 @@ class CheckRestaurant
                 return redirect()->intended('unauthenticated');
             }
         }else{
-            return redirect()->intended('login');
+            return redirect()->intended('/restaurant-login');
         }
         return $next($request);
     }

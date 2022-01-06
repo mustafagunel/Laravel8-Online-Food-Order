@@ -45,7 +45,7 @@
                             @endif
                         </div>
                         <div class="row">
-                            <small>Giriş sayfasına yönlendiriliyorsunuz.</small>
+                            <small>Kullanıcı giriş sayfasına yönlendiriliyorsunuz.</small>
                         </div>
                     </div>
                     </div>

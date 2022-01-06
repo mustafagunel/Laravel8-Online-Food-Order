@@ -42,7 +42,7 @@ Route::post('/pay/{type}',[CartController::class, 'checkOut']);
 
 
 
-Route::get('profile/user/{id}', [UserController::class,'index']);
+Route::get('/profile/user/{id}', [UserController::class,'index']);
 
 
 
@@ -58,6 +58,8 @@ Route::middleware('restaurant')->get('/profile/update/product/{id}', [Restaurant
 Route::middleware('restaurant')->post('/profile/restaurant/update/product', [RestaurantController::class,'updateProduct']);
 
 Route::middleware('restaurant')->get('/profile/detail/order/{id}', [RestaurantController::class,'getOrderDetail']);
+Route::post('/set-point',[RestaurantController::class,'setPoint']);
+
 
 Route::middleware('admin')->get('/admin', [AdminController::class,'index']);
 Route::middleware('admin')->get('/admin/settings', [AdminController::class,'index']);
@@ -81,6 +83,10 @@ Route::post('/register', [RegisterController::class,'store']);
 
 Route::get('/login',[LoginController::class,'index']);
 Route::post('/login', [LoginController::class,'authenticate']);
+Route::get('/admin/login',[LoginController::class,'index2']);
+Route::post('/admin/login', [LoginController::class,'authenticateAdmin']);
+Route::get('/restaurant-login',[LoginController::class,'index3']);
+Route::post('/restaurant-login', [LoginController::class,'authenticateRestaurant']);
 Route::get('/logout', [LoginController::class,'logout']);
 
 

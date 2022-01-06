@@ -204,6 +204,38 @@ class RestaurantController extends Controller
     }
 
 
+    function setPoint(Request $request){
+        
+        $q = 'select * from orders where id ='.$request->id;
+        $order = DB::select($q);
+
+        if($order[0]->orderPoint == 0){ 
+            DB::table('orders')
+            ->where('id', $request->id)
+            ->update(
+            [
+                'orderPoint' => $request->points
+            ]);
+         
+            $q = 'select * from restaurant where id ='.$request->rid;
+            $r   = DB::select($q);
+    
+            $newPoint = ($r[0]->point*$r[0]->pointQt + $request->points)/($r[0]->pointQt+1);
+    
+            DB::table('restaurant')
+            ->where('id', $request->rid)
+            ->update(
+            [
+                'point' => $newPoint,
+                'pointQt'=> ($r[0]->pointQt+1)
+            ]);
+        }
+
+        return view('User.Pages.success',['success'=>'Puanlamanız eklenmiştir.']); 
+        
+        
+    }
+
 /*
     
 

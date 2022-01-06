@@ -24,22 +24,23 @@ class HomeController extends Controller
 
     public function index($city){
         
-        if(Auth::user()){
-            $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where restaurant.town = '.Auth::user()->town.'  LIMIT 10';
-            $tenProductAndRestaurant = DB::select($q);
-    
-            $settings[] = $this->getSettings();
-            
-            return view('Home.Page.cityHome',['city'=>$city,'tenProductAndRestaurant'=>$tenProductAndRestaurant,'settings'=>$settings[0]]);    
-        }
-
         //$q = 'SELECT * FROM `product` INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
-        $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
+        //$q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription FROM `product` product INNER JOIN restaurant ON product.restaurant_id = restaurant.id where city = (SELECT id from city where name="'.$city.'") LIMIT 10';
+        $q = 'SELECT product.*, restaurant.id as rid, restaurant.title as rtitle, restaurant.image as rimage, restaurant.description as rdescription, restaurant.point FROM `product` product 
+        INNER JOIN restaurant ON product.restaurant_id = restaurant.id 
+        where city = (SELECT id from city where name="'.$city.'")
+        and product.category_id = (select id from category where title="Menü")
+        order by restaurant.point desc
+        LIMIT 10';
         $tenProductAndRestaurant = DB::select($q);
+        
+
+        $query = 'select * from restaurant where city = (select id from city where name= "'.$city.'") and status="active"';
+        $restaurants = DB::select($query);
 
         $settings[] = $this->getSettings();
         
-        return view('Home.Page.cityHome',['city'=>$city,'tenProductAndRestaurant'=>$tenProductAndRestaurant,'settings'=>$settings[0]]);
+        return view('Home.Page.cityHome',['city'=>$city,'restaurants'=>$restaurants,'tenProductAndRestaurant'=>$tenProductAndRestaurant,'settings'=>$settings[0]]);
     }
 
     public function index2($city,$town){

@@ -7,7 +7,7 @@
             <div class="col-9 d-grid align-items-center">
                 <div class="row" >
                     <div class="col-3 ">
-                        <p style="text-align:center;background-color:#29cc81; color:white"> {{ $restaurant->point }} </p>
+                        <p style="text-align:center;background-color:#29cc81; color:white"> {{ number_format($restaurant->point, 1, ',', '.') }} </p>
 
                     </div>
                     <div class="col-9">{{ $restaurant->title }} / {{ $restaurant->town_name }} </div>

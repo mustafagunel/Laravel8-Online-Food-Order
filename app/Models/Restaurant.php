@@ -15,6 +15,8 @@ class Restaurant extends Model
         'keywords',
         'description',
         'image',
+        'point',
+        'ponitQt',
         'type',
         'detail',
         'city',

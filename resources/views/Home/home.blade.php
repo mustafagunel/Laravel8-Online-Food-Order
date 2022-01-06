@@ -28,7 +28,7 @@
         @show
         
         <div class="content mt-4">
-            <div class="row offset-sm-1 pb-2">
+            <div class="row offset-lg-1 pb-2">
 
                 @section('left')
                 @show
