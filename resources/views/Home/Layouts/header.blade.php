@@ -8,14 +8,14 @@
                 </a>
             </div>            
             
-            <div class="col-sm-4 d-flex">
+            <div class="col-sm-4 pt-2 d-flex">
                 <form action="{{ route('getproductlw')}}" method="post">
                     @csrf
                     @livewire('search')
                 </form>
             </div>
 
-            <div class="col-sm-4 d-flex">
+            <div class="col-sm-4 pt-2 d-flex">
                 <form action="{{ route('getrestaurantlw')}}" method="post">
                     @csrf
                     @livewire('search2')

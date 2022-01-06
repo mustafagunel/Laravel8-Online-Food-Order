@@ -18,7 +18,7 @@ class UserController extends Controller
         if(Auth::user()->id != $UID){
             return redirect()->intended('unauthenticated');
         }
-        $q ='SELECT orders.*, restaurant.title as rname, restaurant.town as rtown  FROM orders JOIN restaurant on orders.restaurant_id = restaurant.id where user_id='.Auth::user()->id.' and orders.status="preparing" or orders.status="canceled"';
+        $q ='SELECT orders.*, restaurant.title as rname, restaurant.id as rid, restaurant.town as rtown  FROM orders JOIN restaurant on orders.restaurant_id = restaurant.id where user_id='.Auth::user()->id.' order by id desc';
         $orders = DB::select($q);
 
         $q2 = 'select * from settings';

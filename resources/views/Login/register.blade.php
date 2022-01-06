@@ -19,10 +19,16 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets') }}/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <style>
+        .bg-login{
+            background-image:url('/images/bg.png');
+        }
+    </style>
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-login ">
 
     <div class="container">
 

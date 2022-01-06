@@ -61,7 +61,6 @@
             </div>
         </div> 
     </div>
-    Geçmiş siparişler de eklenecek / siparişi tekrarla butonu olacak
       @foreach($orders as $order)
         <div class="container" style="border-width:thin;border-style: solid;border-color: #fa005045;">   
             <div class="row p-2">
@@ -78,6 +77,8 @@
                                 Hazırlanıyor
                             @elseif ($order->status == "canceled")
                                 İptal Edildi
+                            @elseif ($order->status == "complated")
+                                Tamamlandı
                             @endif
                         </div>                      
                         <div class="row">
@@ -89,11 +90,39 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-2 d-flex justify-content-end">
-                        <small>{{ $order->created_at }}</small>
+                    <div class="col-2">
+                        <div class="row">
+                            <small>{{ $order->updated_at }}</small>
+                        </div>
+                        <div class="row">
+                            <small>
+                            @php
+                                $now = new DateTime();
+                                $date = new DateTime($order->updated_at);
+                                $diff = date_diff($now, $date);
+                                print_r($diff->d.' gün '.$diff->i.' saat önce');
+                            @endphp
+                            </small>
+                            
+                        </div>                 
                     </div>
                 </div>
             </div>    
+            <div class="row d-grid justify-content-end p-2">
+                
+                @if(($diff->d == 0) && ($diff->d < 60 ) && ($order->orderPoint == 0 ))
+                    <form action="/set-point" method="POST">
+                        @csrf
+                        <label for="points">Puan:</label>
+                        <input name="id"  style="display:none" value="{{ $order->id }}">
+                        <input name="rid" style="display:none" value="{{ $order->rid }}" >
+                        
+                        <input type="number" id="points" name="points" step="1" min="1" max="10" style="width:50px">
+                        
+                        <input type="submit" value="Gönder">
+                    </form>
+                @endif
+            </div>
         
         </div>
 

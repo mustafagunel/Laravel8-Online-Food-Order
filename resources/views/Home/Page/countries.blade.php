@@ -19,6 +19,8 @@
 @section('left')
 @endsection
 
+
+
 @section('content')
     @include('Home.Contents.countries')
 @endsection

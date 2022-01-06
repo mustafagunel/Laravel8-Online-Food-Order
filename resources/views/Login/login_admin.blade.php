@@ -19,31 +19,32 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets') }}/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <style>
-        .bg-login-user{
-            background-image:url("/images/user_login_bg.jpg");
+<style>
+    .bg-admin{
+        background-image:url("/images/bg-admin.jpg");
             background-repeat: no-repeat;
             background-size: cover;
-        }
-        
+    }
+    a{
+        color:#000;
+    }
     </style>
 </head>
 
-<body class="bg-login-user" >
+<body class="bg-admin">
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-0 shadow-lg my-5" style="background-color: #ffffffb5;">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">User Login Page</h1>
+                                <h1 class="h4 text-gray-900 mb-4" style="font-weight: bold;">Admin Login Page</h1>
                             </div>
-                            <form class="user" action="/login" method="POST">
+                            <form class="user" action="/admin/login" method="POST">
                                 @csrf   
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail"
@@ -62,10 +63,10 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a  href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="{{ url('register') }}">Don't you have an account? Register!</a>
+                                <a href="{{ url('register') }}">Don't you have an account? Register!</a>
                             </div>
                         </div>
                     </div>
