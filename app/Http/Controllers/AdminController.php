@@ -16,7 +16,9 @@ class AdminController extends Controller
         
         $name = Auth::user()->name;
         $settings = Setting::all();
-        return view('Admin.Page.settings',['settings'=>$settings[0],'name'=>$name]);
+
+        $settings2= DB::select('select * from settings_2');
+        return view('Admin.Page.settings',['settings'=>$settings[0],'settings2'=>$settings2,'name'=>$name]);
     }
     
     public function listRestaurants(){
@@ -179,6 +181,7 @@ class AdminController extends Controller
         $newsettings->references=$request->references;
         $newsettings->company=$request->company;
         $newsettings->status=1;
+        $newsettings->ksozlesmesi=$request->ksozlesmesi;
 
 
         $affected = DB::table('settings')->where('id', 1)->update(
@@ -201,11 +204,39 @@ class AdminController extends Controller
                 'contact' =>$newsettings->contact,
                 'references' =>$newsettings->references,
                 'company' =>$newsettings->company,
-                'status' =>$newsettings->status
+                'status' =>$newsettings->status,
+                'ksozlesmesi'=>$newsettings->ksozlesmesi
             ]);
 
         $settings = Setting::all();
         return view('Admin.Page.success',['success'=>'Ayarlar başarıyla güncellendi.']);
     }
+
+    public function updateSettings2(Request $request){
+        
+        $res = DB::table('settings_2')->insert([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        if($res){
+            return view('Admin.Page.success',['success'=>"Ayar başarıyla eklendi."]);
+        }
+        else{
+            return view('Admin.Page.error',['error'=>"Ayar eklenirken hata gerçekleşti!"]);
+        }
+    }
     
+    public function delUpdateSettings2($id){
+
+        $res =  $deleted = DB::table('settings_2')->where('id', '=', $id)->delete();
+        
+        if($res){
+            return view('Admin.Page.success',['success'=>"Ayar başarıyla silindi."]);
+        }
+        else{
+            return view('Admin.Page.error',['error'=>"Ayar silinirken hata gerçekleşti!"]);
+        }
+    }
+
 }

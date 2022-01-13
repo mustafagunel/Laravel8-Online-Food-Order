@@ -231,10 +231,39 @@ class RestaurantController extends Controller
             ]);
         }
 
-        return view('User.Pages.success',['success'=>'Puanlamanız eklenmiştir.']); 
-        
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        return view('Home.Page.userProfile',['success'=>'Siparişinizi başarılı şekilde puanladınız.','settings'=>$settings[0]]);        
         
     }
+
+    public function settings(){
+        $q = 'select * from restaurant where id ='.Auth::user()->restaurant_id;
+        $settings = DB::select($q);
+
+        return view('Restaurant.Page.settings',['settings'=>$settings[0]]);        
+        
+    }
+
+    function updateSettings(Request $request){
+            
+        $res= DB::table('restaurant')
+            ->where('id', Auth::user()->restaurant_id)
+            ->update(
+            [
+                'keywords' => $request->keywords,
+                'description' => $request->description,
+                'min_cart' => $request->min_cart,
+                'serve_price' => $request->serve_price,
+                'serve_time' => $request->serve_time
+            ]);
+        
+        if($res)
+            return view('Restaurant.Page.success',['success'=>"Ayarlar başarılı şekilde güncellendi."]);
+        else
+            return view('Restaurant.Page.error',['error'=>"Ayarlar güncellenirken bir sorun oluştu!"]);
+    }
+
 
 /*
     

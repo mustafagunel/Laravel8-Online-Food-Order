@@ -4,8 +4,8 @@
         <title> @yield('title') </title>
     
         <meta charset="UTF-8">
-        <meta name="description" content="Server Side Programming Project">
-        <meta name="keywords" content="online food order, order food">
+        <meta name="description" content="{{ $settings->description }}">
+        <meta name="keywords" content="{{ $settings->keywords }}">
         <meta name="author" content="Mustafa Günel">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,6 +26,7 @@
         @section('header')
             @include('Home.Layouts.header')
         @show
+
         
         <div class="content mt-4">
             <div class="row offset-lg-1 pb-2">

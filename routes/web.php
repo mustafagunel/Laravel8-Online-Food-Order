@@ -42,7 +42,9 @@ Route::post('/pay/{type}',[CartController::class, 'checkOut']);
 
 
 
-Route::get('/profile/user/{id}', [UserController::class,'index']);
+Route::middleware('user')->get('/profile/user/{id}', [UserController::class,'index']);
+Route::POST('/userProfile/update-user', [UserController::class,'updateProfile']);
+
 
 
 
@@ -56,6 +58,11 @@ Route::middleware('restaurant')->get('/profile/cancel/order/{id}', [RestaurantCo
 Route::middleware('restaurant')->get('/profile/delete/product/{id}', [RestaurantController::class,'deleteProduct']);
 Route::middleware('restaurant')->get('/profile/update/product/{id}', [RestaurantController::class,'updateProductPage']);
 Route::middleware('restaurant')->post('/profile/restaurant/update/product', [RestaurantController::class,'updateProduct']);
+
+Route::middleware('restaurant')->post('/profile/restaurant/update/settings', [RestaurantController::class,'updateSettings']);
+
+
+Route::middleware('restaurant')->get('/profile/restaurant/settings', [RestaurantController::class,'settings']);
 
 Route::middleware('restaurant')->get('/profile/detail/order/{id}', [RestaurantController::class,'getOrderDetail']);
 Route::post('/set-point',[RestaurantController::class,'setPoint']);
@@ -75,6 +82,11 @@ Route::middleware('admin')->get('/admin/delete/user/{id}', [AdminController::cla
 Route::middleware('admin')->get('/admin/edit/user/{id}', [AdminController::class,'updateUserPage'])->where('name','[0-9]+');
 Route::middleware('admin')->post('/admin/edit/user', [AdminController::class,'updateUser']);
 Route::middleware('admin')->post('/admin/update/settings', [AdminController::class,'updateSettings']);
+Route::middleware('admin')->post('/admin/update/settings2', [AdminController::class,'updateSettings2']);
+Route::middleware('admin')->get('/admin/delete/settings2/{id}', [AdminController::class,'delUpdateSettings2']);
+
+
+
 
 
 
@@ -95,32 +107,23 @@ Route::middleware('user')->post('/application-restaurant',[ApplicationController
 
 Route::get('/user/activate/{token}',[RegisterController::class,'activateUser']);
 
-/*
 
-Route::get('restaurant', [HomeController::class,'selectRestaurant']);
-Route::get('/', [HomeController::class,'selectRestaurant']);
+
 Route::get('/sss', [HomeController::class,'sss']);
 Route::get('/kullanicisozlesmesi', [HomeController::class,'ksozlesme']);
 Route::get('/iletisim', [HomeController::class,'iletisim']);
 Route::post('/send-message', [HomeController::class,'sendMail']);
 
+/*
+
+Route::get('restaurant', [HomeController::class,'selectRestaurant']);
+Route::get('/', [HomeController::class,'selectRestaurant']);
+
 
 //Route::get('/login/{name}',[LoginController::class,'test'])->where('name','[0-9]+');
 
 
-
-
-
-
-
-
 Route::get('profile/restaurant/{page}', [RestaurantController::class,'index2']);
-
-
-
-
-
-
 
 
 */

@@ -14,23 +14,17 @@
                 <div class="input-group  m-2">
                     <span class="input-group-text col-2">Ad</span>
                     <input type="text" class="form-control form-control-user" id=""
-                            placeholder="First Name" value="{{ Auth::user()->name }}">
+                            placeholder="First Name" name="name" value="{{ Auth::user()->name }}">
                 </div>
                 <div class="input-group m-2">
                     <span class="input-group-text col-2">Soyad</span>
                     <input type="text" class="form-control form-control-user" id=""
-                            placeholder="Last Name" value="{{ Auth::user()->surname }}">
-                </div>
-                <div class="input-group m-2">
-                    <span class="input-group-text col-2">Email</span>
-                    <input type="email" class="form-control form-control-user" id=""
-                        placeholder="Email Address" value="{{ Auth::user()->email }}">
+                            placeholder="Last Name" name="surname" value="{{ Auth::user()->surname }}">
                 </div>
                 <div class="input-group m-2">
                     <span class="input-group-text col-2">Adres</span>
-                    <textarea class="form-control" aria-label="With textarea">{{ Auth::user()->address }}</textarea>
+                    <textarea class="form-control" name="address" aria-label="With textarea">{{ Auth::user()->address }}</textarea>
                 </div>
-                Town ve City güncelleme de eklenecek.
 
                 <div class="input-group m-2">
                     <button type="submit" class="btn btn-primary">
@@ -100,7 +94,7 @@
                                 $now = new DateTime();
                                 $date = new DateTime($order->updated_at);
                                 $diff = date_diff($now, $date);
-                                print_r($diff->d.' gün '.$diff->i.' saat önce');
+                                print_r($diff->d.' gün '.$diff->h.' saat '.$diff->i.' dk önce');
                             @endphp
                             </small>
                             
@@ -110,7 +104,7 @@
             </div>    
             <div class="row d-grid justify-content-end p-2">
                 
-                @if(($diff->d == 0) && ($diff->d < 60 ) && ($order->orderPoint == 0 ))
+                @if(($diff->d == 0) && ($diff->h < 2 ) && ($order->orderPoint == 0 ) && ($order->status == 'complated' ))
                     <form action="/set-point" method="POST">
                         @csrf
                         <label for="points">Puan:</label>

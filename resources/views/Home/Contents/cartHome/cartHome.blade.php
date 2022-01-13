@@ -82,6 +82,11 @@
                             <span class="input-group-text">Güvenlik (CVC2) Kodu: </span>
                             <input type="text" aria-label="Last name" class="form-control" required>
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Not</span>
+                            <textarea class="form-control" id="not" name="not" rows="3"></textarea>
+                        </div>
+
                         <button type="submit" class="btn btn-primary payment">Sipariş Ver</button>
                     </form>
                 </div>
@@ -94,6 +99,10 @@
                 <div class="cash-cart"  style="display:none":>
                     <form class="mt-3" method="POST" action="/pay/cash">
                         @csrf
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Not</span>
+                            <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary payment">Sipariş Ver</button>
                     </form>
                 </div>

@@ -1,4 +1,4 @@
-@extends('Home.Pages.home')
+@extends('Home.home')
 
 @section('title', 'Profil Sayfam')
 

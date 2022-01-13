@@ -26,4 +26,19 @@ class UserController extends Controller
         return view('Home.Page.userProfile',['orders'=>$orders,'settings'=>$settings[0]]);
     }
 
+    public function updateProfile(Request $request){
+        
+        DB::table('users')->where('id', Auth::user()->id)->update(
+            [
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'address' => $request->address,
+            ]);
+            
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        
+        return view('Home.Page.userProfile',['success'=>'Profil başarıyla güncellendi.','settings'=>$settings[0]]);
+    }
+
 }

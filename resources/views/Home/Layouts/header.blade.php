@@ -3,7 +3,7 @@
     <div class="container p-3">
         <div class="row align-items-center justify-content-md-center">
             <div class="col-sm-3">
-                <a class="navbar-brand " style="font-size:2.25rem; font-family: 'Pacifico', cursive; color:white"  href="#">
+                <a class="navbar-brand " style="font-size:2.25rem; font-family: 'Pacifico', cursive; color:white"  href="/">
                     Yemek Diyarı
                 </a>
             </div>            

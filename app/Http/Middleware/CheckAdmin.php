@@ -22,7 +22,7 @@ class CheckAdmin
                 return redirect()->intended('unauthenticated');
             }
         }else{
-            return redirect()->intended('login');
+            return redirect()->intended('/admin/login');
         }
         
         return $next($request);

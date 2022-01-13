@@ -48,9 +48,6 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="false">Bilgiler</button>
     </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="comment-tab" data-bs-toggle="tab" data-bs-target="#comment" type="button" role="tab" aria-controls="comment" aria-selected="false">Yorumlar</button>
-    </li>
     </ul>
 
 </div>
@@ -103,8 +100,5 @@
     </ul>
   
     </div>
-  <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-      Eklenecek
-  </div>
 </div>
 

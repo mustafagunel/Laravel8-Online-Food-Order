@@ -104,6 +104,52 @@ class HomeController extends Controller
         }
     }
 
+    function sss(){
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+
+        
+        $q = 'select * from settings_2';
+        $settings2 = DB::select($q);
+
+
+        return view ('Home.Page.sss',['page'=>'sss','settings'=>$settings[0],'settings2'=>$settings2]);
+    }
+
+    function ksozlesme(){
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+
+        return view ('Home.Page.ksozlesmesi',['page'=>'ksozlesme','settings'=>$settings[0]]);
+    }
+
+    function iletisim(){
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+
+        return view ('Home.Page.iletisim',['page'=>'iletisim','settings'=>$settings[0]]);
+    }
+
+    function sendMail(Request $request){
+
+        $email="gunel4755@gmail.com";
+        $array = [
+            'mail'=>$request->email,
+            'msg'=>$request->msg,
+            'date'=>date('Y-m-d')
+        ];
+
+        mail::send('Home.Contents.iletisim.messagebody',$array, function($message) use ($email){
+            $message->subject('YemekDiyarı (WEB)');
+            $message->to($email);
+        });
+       
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);    
+        return view ('Home.Page.iletisim',['settings'=>$settings[0],'success'=>"Mesajınız başarılı şekilde iletildi."]);
+
+    }
+
     //
     /*
     
@@ -117,49 +163,12 @@ class HomeController extends Controller
     }
 
 
-    function sss(){
-        $q2 = 'select * from settings';
-        $settings = DB::select($q2);
+    
 
+    
 
-        return view ('Home.index',['page'=>'sss','settings'=>$settings[0]]);
-    }
+    
 
-    function ksozlesme(){
-        $q2 = 'select * from settings';
-        $settings = DB::select($q2);
-
-        return view ('Home.index',['page'=>'ksozlesme','settings'=>$settings[0]]);
-    }
-
-    function iletisim(){
-        $q2 = 'select * from settings';
-        $settings = DB::select($q2);
-
-        return view ('Home.index',['page'=>'iletisim','settings'=>$settings[0]]);
-    }
-
-    function sendMail(Request $request){
-
-        $email="gunel4755@gmail.com";
-        $array = [
-            'mail'=>$request->email,
-            'msg'=>$request->msg,
-            'date'=>date('Y-m-d')
-        ];
-
-        mail::send('Home.messagebody',$array, function($message) use ($email){
-            $message->subject('YemekDiyarı (WEB)');
-            $message->to($email);
-        });
-
-
-
-        
-        $q2 = 'select * from settings';
-        $settings = DB::select($q2);    
-        return view ('Home.index',['page'=>'iletisim','settings'=>$settings[0],'success'=>"Mail başarılı şekilde gönderildi"]);
-
-    }
+    
     */
 }

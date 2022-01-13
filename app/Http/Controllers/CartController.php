@@ -27,7 +27,7 @@ class CartController extends Controller
     }
 
     function checkOut(Request $request, $type){
-
+        $note = $request->note;
         if(!Auth::user()){
             $alert = "Sipariş vermek için giriş yapmak zorundasınız.";
             $cart = session()->get('cart', []);
@@ -71,11 +71,11 @@ class CartController extends Controller
             switch($type){
                 case "cash":
                     $t="cash";
-                    $this->payment($cart,$t);
+                    $this->payment($cart,$t,$note);
                     break;
                 case "online-credit-cart":
                     $t="credit-cart";
-                    $this->payment($cart,$t);
+                    $this->payment($cart,$t,$note);
                     break;
                 default:
                     break;
@@ -89,7 +89,7 @@ class CartController extends Controller
     }
 
 
-    public function payment($cart,$t){
+    public function payment($cart,$t,$note){
         $ip= $_SERVER['REMOTE_ADDR'];
 
         $total=0;
@@ -103,7 +103,7 @@ class CartController extends Controller
             'user_id'=>Auth::user()->id,
             'restaurant_id'=> $c['restaurant'],
             'total'=> $total,
-            'note'=>'note',
+            'note'=>$note,
             'payment_type'=>$t,
             'address'=>Auth::user()->address,
             'ip'=>$ip,
