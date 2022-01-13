@@ -20,7 +20,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    
     <!-- Heading -->
     <div class="sidebar-heading">
         Products
@@ -56,7 +56,14 @@
 
 
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
+    <li class="nav-item">
+        <a class="nav-link" href="/profile/restaurant/settings">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+            <span>Settings</span></a>
+    </li>
 
 
        <!-- Sidebar Message -->

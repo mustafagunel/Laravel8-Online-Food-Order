@@ -1,6 +1,6 @@
 @extends('Home.home')
 
-@section('title', 'Profile - Online Yemek Siparişi, Paket Servis - Yemek Diyarı')
+@section('title', 'Sık Sorulan Sorular - Online Yemek Siparişi, Paket Servis - Yemek Diyarı')
 
 
 @section('left')
@@ -13,19 +13,13 @@
 @if(isset($success))
     @section('content')
         <div class="col-sm-7 pb-4">
-            @include('Home.Contents.userProfile.success')
+            @include('Home.Contents.iletisim.success')
         </div>
     @endsection
 @else
     @section('content')
         <div class="col-sm-7 pb-4">
-            @include('Home.Contents.userProfile.userProfile')
+            @include('Home.Contents.iletisim.iletisim')
         </div>
     @endsection
 @endif
-
-@section('right')
-    <div class="col-sm-1 pb-4"> 
-        @include('Home.Contents.cityHome.cityHomeRight')
-    </div>
-@endsection

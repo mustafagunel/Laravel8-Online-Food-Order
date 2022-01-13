@@ -14,7 +14,6 @@
                         <ul style="list-style:none;">
                             <a href="/sss" style="text-decoration:none"><li>S.S.S. ve İşlem Rehberi</li></a>
                             <a href="/kullanicisozlesmesi" style="text-decoration:none"><li>Kullanıcı Sözleşmesi</li></a>
-                            <a href="/aydinlatmametni" style="text-decoration:none"><li>Aydınlatma Metni</li></a>
                         </ul>
                     </div>
                     <div class="col-4">
