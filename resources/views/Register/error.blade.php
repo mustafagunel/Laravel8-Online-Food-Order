@@ -33,6 +33,7 @@
                 <div class="col-12 d-flex justify-content-center p-3">
                     {{ $error }}
                 </div>
+                <a href="/"> Ana Sayfa</a>
             </div>
         </div>
     </div>

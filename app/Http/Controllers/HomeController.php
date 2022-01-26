@@ -150,6 +150,13 @@ class HomeController extends Controller
 
     }
 
+
+    function aboutus(){
+        $q2 = 'select * from settings';
+        $settings = DB::select($q2);
+        return view('Home.Page.aboutus',['settings'=>$settings[0]]);
+    }
+
     //
     /*
     

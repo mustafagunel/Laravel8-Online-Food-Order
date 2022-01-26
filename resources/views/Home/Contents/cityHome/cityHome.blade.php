@@ -34,7 +34,7 @@
                     <div class="col-7 offset-1">
                         <div class="row">
                             <p style="color:#fa0050; "><span style="font-weight:bold;">{{ $tp->title }}</span><hr>
-                            {{ $tp->description }}</p>
+                            {{ Str::limit($tp->description, 100) }}</p>
                             
                         </div>
                         <div class="row">

@@ -48,12 +48,13 @@
             <div class="col-sm-12 p-2" style="background-color:#f4eaea;">
                 <div class="row">
                     <div class="col-3">
-                        <img src="https://profile.yemeksepeti.com/fb/2280/14E969DC83E10C7BCD2D00D108FB6D5C.png" style="width:auto; height:50px">
+                        <img src="/images/pp.png" style="width:auto; height:50px">
                     </div>
                     <div class="col offset-1">
                         <div class="row" style="color:#fa0050">
-                            <a href="/profile/user/{{Auth::user()->id}}">{{Auth::user()->name." ".Auth::user()->surname}} </a>
+                            <a href="/profile/user/{{Auth::user()->id}}" style="text-decoration:none">{{Auth::user()->name." ".Auth::user()->surname}} <small>Profilim</small></a>
                         </div>
+                        
                     </div>
                 </div>
             </div>

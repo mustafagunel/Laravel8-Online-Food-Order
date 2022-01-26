@@ -9,7 +9,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active border border-success rounded-pill p-2"><a data-toggle="tab" href="#home">Main Settings</a></li>
-            <li class="border border-success rounded-pill p-2 ml-2"><a data-toggle="tab" href="#other">Other</a></li>
+            <li class="border border-success rounded-pill p-2 ml-2"><a data-toggle="tab" href="#other">SSS</a></li>
         </ul>
 
         <div class="tab-content">
@@ -84,8 +84,12 @@
                                                 placeholder="Twitter" value="{{ $settings['twitter'] }}">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" name="aboutus" id=""
-                                                placeholder="About Us" value="{{ $settings['aboutus'] }}">
+                                            <span>Hakkımızda</span>
+                                            <textarea id="aboutus" name="aboutus" >
+                                            </textarea>
+                                            <!--
+                                            <input type="text" class="form-control form-control-user" name="aboutus" id="aboutus"
+                                                placeholder="About Us" value="{{ $settings['aboutus'] }}">-->
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" name="contact" id=""
@@ -96,6 +100,7 @@
                                                 placeholder="References" value="{{ $settings['references'] }}">
                                         </div>
                                         <div class="form-group">
+                                            <span>Kullanıcı Kayıt Sözleşmesi</span>
                                             <textarea id="ksozlesmesi" name="ksozlesmesi" >
                                             </textarea>
                                         </div>
@@ -220,8 +225,31 @@
         ]
       });
 
+
+      $('#aboutus').summernote({
+        placeholder: 'Hakkımızda Metni..',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+
     var markupStr = '{{ $settings["ksozlesmesi"] }}';
     $('#ksozlesmesi').summernote('code', markupStr);
+
+    var markupStr = '{{ $settings["aboutus"] }}';
+    $('#aboutus').summernote('code', markupStr);
+
+
+
+
     </script>
         
 

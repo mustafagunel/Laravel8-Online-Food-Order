@@ -110,6 +110,7 @@ Route::get('/user/activate/{token}',[RegisterController::class,'activateUser']);
 
 
 Route::get('/sss', [HomeController::class,'sss']);
+Route::get('/aboutus', [HomeController::class,'aboutus']);
 Route::get('/kullanicisozlesmesi', [HomeController::class,'ksozlesme']);
 Route::get('/iletisim', [HomeController::class,'iletisim']);
 Route::post('/send-message', [HomeController::class,'sendMail']);

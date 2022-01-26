@@ -12,6 +12,7 @@
                     </div>
                     <div class="col-4">
                         <ul style="list-style:none;">
+                            <a href="/aboutus" style="text-decoration:none"><li>Hakkımızda</li></a>
                             <a href="/sss" style="text-decoration:none"><li>S.S.S. ve İşlem Rehberi</li></a>
                             <a href="/kullanicisozlesmesi" style="text-decoration:none"><li>Kullanıcı Sözleşmesi</li></a>
                         </ul>

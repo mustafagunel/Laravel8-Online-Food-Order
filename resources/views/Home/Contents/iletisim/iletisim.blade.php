@@ -2,7 +2,13 @@
     <div class="container pb-5">
         <div class="row ">
             <div class="col-12">
-            Siparişleriniz ile ilgili destek hattımıza hemen ulaşmak için web ve uygulamalar üzerinde yer alan canlı yardım butonuna tıklayabilirsiniz. Görüşleriniz için info@yemekdiyari.com adresine email gönderebilir veya 444 0 000 numaralı telefondan bize ulaşabilirsiniz.
+            Siparişleriniz ile ilgili destek hattımıza hemen ulaşmak için web ve uygulamalar üzerinde yer alan canlı yardım butonuna tıklayabilirsiniz. Görüşleriniz için info@yemekdiyari.com adresine email gönderebilir veya {{ $settings->phone }} numaralı telefondan bize ulaşabilirsiniz.
+            </div>
+            <div class="col-12">
+                Telefon: {{ $settings->phone }}<br>
+                Fax: {{ $settings->fax }}<br>
+                Mail: {{ $settings->email }}<br>
+                Adres: {{ $settings->address }}
             </div>
         </div>
     </div>
